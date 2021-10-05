@@ -6,10 +6,14 @@ using System.Text;
 
 namespace Projet_Pizzeria.Model
 {
-    public class Cuisine
+    public class Livreur
     {
 
-        public void PreparerCommande()
+        public long NoLivreur { get; set; };
+        public int NbLivraisonEffectue { get; set; };
+
+
+        public void LivrerCommande()
         {
             // TODO implement here
         }

@@ -1,21 +1,24 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-public class Livreur {
+namespace Projet_Pizzeria.Model
+{
+    public class Livreur
+    {
+        [Key]
+        public long NoLivreur { get; set; }
 
-    public Livreur() {
+        public int NbLivraisonEffectue { get; set; }
+
+
+        public void LivrerCommande()
+        {
+            // TODO implement here
+        }
+
     }
-
-    private long NoLivreur;
-
-    private int NbLivraisonEffectue;
-
-
-    public void LivrerCommande() {
-        // TODO implement here
-    }
-
 }

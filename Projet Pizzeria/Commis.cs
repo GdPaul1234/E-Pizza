@@ -1,19 +1,15 @@
 
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
 namespace Projet_Pizzeria.Model
 {
-    public class Commis : DbContext
+    public class Commis
     {
-        [Key]
-        public long NoCmmis { get; set; }
-
-        public int NbDeCommandeGeree { get; private set; }
+        public long NoCmmis { get; set; };
+        public int NbDeCommandeGeree { get; private set; };
 
         public void ConnaitreEtatCommande()
         {

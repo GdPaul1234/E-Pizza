@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Boisson : AItem {
+namespace Projet_Pizzeria.Model
+{
+    public class Boisson : AItem
+    {
 
-    public Boisson() {
+        public double Volume { get; set; }
+
     }
-
-    private double Volume;
-
 }

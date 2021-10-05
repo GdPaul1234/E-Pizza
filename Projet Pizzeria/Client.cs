@@ -1,8 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -10,18 +8,16 @@ namespace Projet_Pizzeria.Model
 {
     public class Client
     {
-        [Key]
-        public long NoClient { get; set; }
 
-        public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public string NoTelephone { get; set; }
-        public DateTime DatePremiereCommande { get; set; }
+        public long NoClient { get; set; };
+        public string Nom { get; set; };
+        public string Prenom { get; set; };
+        public string NoTelephone { get; set; };
+        public Date DatePremiereCommande { get; set; };
 
-        [NotMapped]
-        public List<Commande> Commandes { get; private set; } = new List<Commande>();
+        public HashSet<Commande> Commandes { get; private set; };
 
-        public Adresse Adresse { get; set; }
+        public Adresse Adresse { get; set };
 
         /// <summary>
         /// @return

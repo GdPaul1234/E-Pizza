@@ -1,8 +1,6 @@
 
-using Projet_Pizzeria.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -10,22 +8,21 @@ namespace Projet_Pizzeria.Model
 {
     public class Commande
     {
-        [Key]
-        public long NumeroCommande { get; set; }
 
-        public DateTime DateHeureCommande { get; set; }
-        public string EtatCommande { get; set; }
-        public double MontantTotal { get; private set; }
+        public long NumeroCommande { get; set };
+        public Date DateHeureCommande { get; set };
+        public string EtatCommande { get; set };
+        public double MontantTotal { get; private set };
 
-        public Client Client { get; set; }
-        public Commis Commis { get; set; }
 
-        public List<AItem> Items { get; set; }
+        private Commis Commis;
+
+        private HashSet<AItem> Items;
 
         /// <summary>
         /// @param p
         /// </summary>
-        public void AddItem(AItem p)
+        public void Add(IProduit p)
         {
             // TODO implement here
         }
@@ -33,7 +30,7 @@ namespace Projet_Pizzeria.Model
         /// <summary>
         /// @param p
         /// </summary>
-        public void DelItem(AItem p)
+        public void Del(IProduit p)
         {
             // TODO implement here
         }
@@ -41,7 +38,7 @@ namespace Projet_Pizzeria.Model
         /// <summary>
         /// @return
         /// </summary>
-        public List<AItem> GetCommandeItems()
+        public List<IProduit> Get()
         {
             // TODO implement here
             return null;

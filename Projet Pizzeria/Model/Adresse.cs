@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Adresse {
+namespace Projet_Pizzeria.Model
+{
+    public class Adresse
+    {
+        public int AdresseId { get; set; }
 
-    public Adresse() {
+        public string Rue { get; set; }
+        public string Ville { get; set; }
+        public string Cp { get; set; }
     }
-
-    public string Rue { get; set };
-    private string Ville { get; set };
-    private string Cp { get; set };
-
-
-
 }
