@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.Model;
+using System;
 
 namespace Projet_Pizzeria.DAO
 {
