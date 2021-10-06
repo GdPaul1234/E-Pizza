@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 
 namespace Projet_Pizzeria.Model
 {
@@ -13,8 +11,8 @@ namespace Projet_Pizzeria.Model
         public String Nom { get; set; }
 
         public virtual ICollection<Client> ListClient { get; set; } = new ObservableCollection<Client>();
-        public virtual ICollection<Commis> ListCommis { get; set; } = new ObservableCollection< Commis >();
-        public virtual ICollection<Livreur> ListLivreur { get; set; } = new ObservableCollection< Livreur >();
+        public virtual ICollection<Commis> ListCommis { get; set; } = new ObservableCollection<Commis>();
+        public virtual ICollection<Livreur> ListLivreur { get; set; } = new ObservableCollection<Livreur>();
 
         public void ExportClient()
         {
