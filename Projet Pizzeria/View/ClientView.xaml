@@ -6,9 +6,17 @@
              xmlns:local="clr-namespace:Projet_Pizzeria.View"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
 
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="clientViewSource"/>
+        <CollectionViewSource x:Key="clientCommandesViewSource" 
+                              Source="{Binding Commandes, Source={StaticResource clientViewSource}}"/>
+        <CollectionViewSource x:Key="commandeItemsViewSource" 
+                              Source="{Binding Items, Source={StaticResource clientCommandesViewSource}}"/>
+    </UserControl.Resources>
+
+    <DockPanel>
         <!-- Toolbar -->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
@@ -28,7 +36,7 @@
             </ToolBar>
 
             <ToolBar>
-                <Button ToolTip="Ajouter un client">
+                <Button ToolTip="Ajouter un client" Click="AddClient_Button_Click">
                     <StackPanel>
                         <fa:ImageAwesome Icon="UserPlus" Width="16" Height="16"/>
                         <TextBlock>Nouv. client</TextBlock>
@@ -81,8 +89,121 @@
             </ToolBar>
         </ToolBarTray>
 
-        <TextBox>
-            Editor area...
-        </TextBox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 
+            WPF: Grid with column/row margin/padding?
+            https://stackoverflow.com/questions/1319974/wpf-grid-with-column-row-margin-padding 
+            -->
+            <Grid.Resources >
+                <Style TargetType="Border" >
+                    <Setter Property="Padding" Value="5,5,5,5" />
+                </Style>
+            </Grid.Resources>
+
+            <!-- 
+            Getting Started with WPF
+            https://docs.microsoft.com/en-us/ef/core/get-started/wpf 
+            -->
+            <Border Grid.ColumnSpan="2">
+                <DataGrid x:Name="clientDataGrid" AutoGenerateColumns="False" 
+                  EnableRowVirtualization="True" IsReadOnly="True"
+                  ItemsSource="{Binding Source={StaticResource clientViewSource}}" 
+                  RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding NoClient}" Header="No Client" Width="SizeToHeader"/>
+                        <DataGridTextColumn Binding="{Binding Nom}" Header="Nom"  Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Prenom}" Header="Prénom"  Width="*"/>
+                        <DataGridTextColumn Binding="{Binding MontantAchatCumule}" Header="Achats Cumulés (€)"  Width="SizeToHeader"/>
+                        <DataGridTextColumn Binding="{Binding Adresse.Ville}" Header="Ville"  Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Info personne -->
+            <Border Grid.Column="2" Grid.RowSpan="2" Margin="0">
+                <ScrollViewer>
+                    <StackPanel Margin="0,0,5,0">
+                        <GroupBox Header="Informations pers."  
+                                  Background="#FFF0F0F0">
+                            <StackPanel>
+                                <Label>Nom:</Label>
+                                <TextBox Text="{Binding SelectedItem.Nom, ElementName=clientDataGrid}"></TextBox>
+
+                                <Label>Prenom:</Label>
+                                <TextBox Text="{Binding SelectedItem.Prenom, ElementName=clientDataGrid}"/>
+
+                                <Label>Telephone:</Label>
+                                <TextBox Text="{Binding SelectedItem.NoTelephone, ElementName=clientDataGrid}"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Adresse"
+                                   Background="#FFF0F0F0">
+                            <StackPanel>
+                                <Label>Rue:</Label>
+                                <TextBox Text="{Binding SelectedItem.Adresse.Rue, ElementName=clientDataGrid}"></TextBox>
+
+                                <Label>Ville:</Label>
+                                <TextBox Text="{Binding SelectedItem.Adresse.Ville, ElementName=clientDataGrid}"/>
+
+                                <Label>CP:</Label>
+                                <TextBox Text="{Binding SelectedItem.Adresse.Cp, ElementName=clientDataGrid}"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <WrapPanel HorizontalAlignment="Center">
+                            <WrapPanel.Resources >
+                                <Style TargetType="Button" >
+                                    <Setter Property="Margin" Value="5,5,5,5" />
+                                </Style>
+                            </WrapPanel.Resources>
+
+                            <Button Click="EditClient_Button_Click" >Val. édition</Button>
+                            <Button Click="DelClient_Button_Click"
+                                     Tag="{Binding SelectedItem,  ElementName=clientDataGrid}">
+                                Suppr. client
+                            </Button>
+                        </WrapPanel>
+                    </StackPanel>
+                </ScrollViewer>
+
+            </Border>
+
+
+            <!-- Commande Details Grid -->
+            <Border Grid.Row="1">
+                <DataGrid x:Name="commandesDataGrid" AutoGenerateColumns="False" 
+                  EnableRowVirtualization="True" IsReadOnly="True"
+                  ItemsSource="{Binding Source={StaticResource clientCommandesViewSource}}" 
+                  RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding NoClient}" Header="No Client" Width="SizeToHeader"/>
+                        <DataGridTextColumn Binding="{Binding DateHeureCommande}" Header="Date commande" Width="SizeToHeader"/>
+                        <DataGridTextColumn Binding="{Binding MontantTotal}" Header="Montant (€)" Width="SizeToHeader"/>
+                        <DataGridTextColumn Binding="{Binding Commis.NoCmmis}" Header="Servi par" Width="SizeToHeader"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Item Details Grid -->
+            <Border Grid.Row="1" Grid.Column="1">
+                <DataGrid x:Name="itemsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"
+                  EnableRowVirtualization="True" 
+                  ItemsSource="{Binding Source={StaticResource commandeItemsViewSource}}" 
+                  RowDetailsVisibilityMode="VisibleWhenSelected">
+                </DataGrid>
+            </Border>
+        </Grid>
     </DockPanel>
 </UserControl>

@@ -24,6 +24,13 @@ namespace Projet_Pizzeria.Controller
             pizzeriaDb.Dispose();
         }
 
+        private void RefreshResultSet()
+        {
+            // Refresh
+            ClientResultSet.Clear();
+            ClientResultSet.AddRange(pizzeriaDb.Clients.ToList());
+        }
+
         /**
          * CRUD Client
          **/
@@ -32,6 +39,7 @@ namespace Projet_Pizzeria.Controller
         {
             pizzeriaDb.Clients.Add(c);
             pizzeriaDb.SaveChanges();
+            RefreshResultSet();
             return c.NoClient;
         }
 
@@ -42,6 +50,7 @@ namespace Projet_Pizzeria.Controller
             {
                 pizzeriaDb.Clients.Remove(deletingClient);
                 pizzeriaDb.SaveChanges();
+                RefreshResultSet();
             }
         }
 
@@ -56,6 +65,7 @@ namespace Projet_Pizzeria.Controller
                 editingClient.Adresse = c.Adresse;
                 editingClient.NoClient = c.NoClient;
                 pizzeriaDb.SaveChanges();
+                RefreshResultSet();
             }
         }
 
@@ -66,23 +76,23 @@ namespace Projet_Pizzeria.Controller
         public IClientOrderer OrderByAlphaOrder(int direction)
         {
             if (direction > 0)
-                ClientResultSet.OrderBy(c => c.Nom);
+                ClientResultSet = ClientResultSet.OrderBy(c => c.Nom).ToList();
             else if (direction < 0)
-                ClientResultSet.OrderByDescending(c => c.Nom);
+                ClientResultSet = ClientResultSet.OrderByDescending(c => c.Nom).ToList();
 
             return this;
         }
 
         public IClientOrderer OrderByAchatCumule()
         {
-            ClientResultSet.OrderByDescending(c => c.MontantAchatCumule);
+            ClientResultSet = ClientResultSet.OrderByDescending(c => c.MontantAchatCumule).ToList();
             return this;
         }
 
         public IClientOrderer FilterByCity(string city)
         {
-            ClientResultSet.Where(c => c.Adresse.Ville == city)
-                .OrderBy(c => c.Adresse.Ville);
+            ClientResultSet = ClientResultSet.Where(c => c.Adresse.Ville == city)
+                .OrderBy(c => c.Adresse.Ville).ToList();
             return this;
         }
 
