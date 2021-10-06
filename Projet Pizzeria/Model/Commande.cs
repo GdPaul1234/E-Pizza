@@ -2,6 +2,7 @@
 using Projet_Pizzeria.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,10 @@ namespace Projet_Pizzeria.Model
         public string EtatCommande { get; set; }
         public double MontantTotal { get; private set; }
 
-        public Client Client { get; set; }
-        public Commis Commis { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Commis Commis { get; set; }
 
-        public List<AItem> Items { get; set; }
+        public virtual ICollection<AItem> Items { get; set; } = new ObservableCollection<AItem>();
 
         /// <summary>
         /// @param p

@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,19 +17,18 @@ namespace Projet_Pizzeria.Model
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string NoTelephone { get; set; }
-        public DateTime DatePremiereCommande { get; set; }
+        public DateTime DatePremiereCommande { get; private set; }
+        public double MontantAchatCumule { get; private set; }
 
-        [NotMapped]
-        public List<Commande> Commandes { get; private set; } = new List<Commande>();
+        public virtual ICollection<Commande> Commandes { get; private set; } = new ObservableCollection<Commande>();
 
-        public Adresse Adresse { get; set; }
+        public virtual Adresse Adresse { get; set; }
 
         /// <summary>
         /// @return
         /// </summary>
         public Commande CreerNouvelleCommande()
         {
-            // TODO implement here
             return null;
         }
 

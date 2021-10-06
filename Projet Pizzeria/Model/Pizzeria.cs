@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -11,9 +12,9 @@ namespace Projet_Pizzeria.Model
 
         public String Nom { get; set; }
 
-        public List<Client> ListClient { get; set; } = new List<Client>();
-        public List<Commis> ListCommis { get; set; } = new List<Commis>();
-        public List<Livreur> ListLivreur { get; set; } = new List<Livreur>();
+        public virtual ICollection<Client> ListClient { get; set; } = new ObservableCollection<Client>();
+        public virtual ICollection<Commis> ListCommis { get; set; } = new ObservableCollection< Commis >();
+        public virtual ICollection<Livreur> ListLivreur { get; set; } = new ObservableCollection< Livreur >();
 
         public void ExportClient()
         {

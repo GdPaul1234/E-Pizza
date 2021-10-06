@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projet_Pizzeria.DAO;
 
-namespace Projet_Pizzeria.Migrations
+namespace Projet_Pizzeria.Migrations.Pizzeria
 {
-    [DbContext(typeof(ClientContext))]
-    partial class ClientContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PizzeriaContext))]
+    [Migration("20211006085635_Update2PizzeriaContext")]
+    partial class Update2PizzeriaContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +63,7 @@ namespace Projet_Pizzeria.Migrations
 
                     b.HasKey("AdresseId");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Adresse");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Client", b =>
@@ -118,6 +120,34 @@ namespace Projet_Pizzeria.Migrations
                     b.HasIndex("ClientNoClient");
 
                     b.ToTable("Commandes");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Commis", b =>
+                {
+                    b.Property<long>("NoCmmis")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbDeCommandeGeree")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("NoCmmis");
+
+                    b.ToTable("Commis");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Livreur", b =>
+                {
+                    b.Property<long>("NoLivreur")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbLivraisonEffectue")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("NoLivreur");
+
+                    b.ToTable("Livreurs");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Boisson", b =>

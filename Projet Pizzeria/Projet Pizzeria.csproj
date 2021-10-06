@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -58,6 +61,9 @@
     </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore.Design, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.Design.3.1.19\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Proxies, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Proxies.3.1.19\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Proxies.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.3.1.19\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
@@ -127,6 +133,7 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -175,7 +182,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controller\ModuleClient.cs" />
+    <Compile Include="Controller\IClientOrderer.cs" />
+    <Compile Include="Controller\ModuleClientEffectif.cs" />
     <Compile Include="Controller\ModuleCommandes.cs" />
     <Compile Include="Controller\ModuleCommunication.cs" />
     <Compile Include="Controller\ModuleStatistiques.cs" />
@@ -183,6 +191,7 @@
     <Compile Include="DAO\CommandeContext.cs" />
     <Compile Include="DAO\CommisContext.cs" />
     <Compile Include="DAO\LivreurContext.cs" />
+    <Compile Include="DAO\PizzeriaContext.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -192,6 +201,14 @@
     <Compile Include="Migrations\20211005100943_InitialClientCreate.cs" />
     <Compile Include="Migrations\20211005100943_InitialClientCreate.designer.cs">
       <DependentUpon>20211005100943_InitialClientCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20211005211807_Update1ClientContext.cs" />
+    <Compile Include="Migrations\20211005211807_Update1ClientContext.designer.cs">
+      <DependentUpon>20211005211807_Update1ClientContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20211006090825_Update2ClientContext.cs" />
+    <Compile Include="Migrations\20211006090825_Update2ClientContext.designer.cs">
+      <DependentUpon>20211006090825_Update2ClientContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ClientContextModelSnapshot.cs" />
     <Compile Include="Migrations\Commande\20211005101939_InitialCommandeCreate.cs" />
@@ -209,6 +226,19 @@
       <DependentUpon>20211005100426_InitialLivreurCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Livreur\LivreurContextModelSnapshot.cs" />
+    <Compile Include="Migrations\Pizzeria\20211005115205_InitialPizzeriaCreate.cs" />
+    <Compile Include="Migrations\Pizzeria\20211005115205_InitialPizzeriaCreate.designer.cs">
+      <DependentUpon>20211005115205_InitialPizzeriaCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Pizzeria\20211005211847_Update1PizzeriaContext.cs" />
+    <Compile Include="Migrations\Pizzeria\20211005211847_Update1PizzeriaContext.designer.cs">
+      <DependentUpon>20211005211847_Update1PizzeriaContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Pizzeria\20211006085635_Update2PizzeriaContext.cs" />
+    <Compile Include="Migrations\Pizzeria\20211006085635_Update2PizzeriaContext.designer.cs">
+      <DependentUpon>20211006085635_Update2PizzeriaContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Pizzeria\PizzeriaContextModelSnapshot.cs" />
     <Compile Include="Model\Adresse.cs" />
     <Compile Include="Model\AItem.cs" />
     <Compile Include="Model\Boisson.cs" />
@@ -247,7 +277,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
