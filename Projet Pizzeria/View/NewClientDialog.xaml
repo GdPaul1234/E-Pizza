@@ -1,0 +1,64 @@
+﻿<Window x:Class="Projet_Pizzeria.View.NewClientDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projet_Pizzeria.View"
+        mc:Ignorable="d"
+        Title="Nouveau Client" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.Resources >
+            <Style TargetType="GroupBox" >
+                <Setter Property="Margin" Value="5,5,5,5" />
+            </Style>
+        </Grid.Resources>
+
+
+        <GroupBox Header="Informations pers." Background="#FFF0F0F0">
+            <StackPanel>
+                <Label>Nom:</Label>
+                <TextBox Name="nom"></TextBox>
+
+                <Label>Prenom:</Label>
+                <TextBox Name="prenom"/>
+
+                <Label>Telephone:</Label>
+                <TextBox Name="telephone"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Adresse" Grid.Column="1" Background="#FFF0F0F0">
+            <StackPanel>
+                <Label>Rue:</Label>
+                <TextBox x:Name="adresseRue"/>
+
+                <Label>Ville:</Label>
+                <TextBox x:Name="adresseVille"/>
+
+                <Label>CP:</Label>
+                <TextBox x:Name="adresseCp"/>
+            </StackPanel>
+        </GroupBox>
+
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <WrapPanel.Resources >
+                <Style TargetType="Button" >
+                    <Setter Property="Margin" Value="5,5,5,5" />
+                </Style>
+            </WrapPanel.Resources>
+
+            <Button IsDefault="True" Name="btnDialogOk" Click="BtnDialogOk_Click" >OK</Button>
+            <Button IsCancel="True" >Annuler</Button>
+        </WrapPanel>
+    </Grid>
+</Window>

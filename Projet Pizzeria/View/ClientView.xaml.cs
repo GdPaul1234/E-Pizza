@@ -29,26 +29,63 @@ namespace Projet_Pizzeria.View
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
-        private void EditClient_Button_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            
-        }
-
-        private void DelClient_Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private Client GetSelectedClientFromButtonTag(object sender)
         {
             // get data from datagrid on button click in WPF application
             // https://stackoverflow.com/questions/5836814/get-data-from-datagrid-on-button-click-in-wpf-application#5836962
             var button = sender as FrameworkElement;
-            var selectedClient = button.Tag as Client;
+            return button.Tag as Client;
+        }
+
+        private void EditClient_Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var selectedClient = GetSelectedClientFromButtonTag(sender);
+            if(selectedClient != null)
+            {
+                #region NEW CLIENT
+                var editClient = new Client
+                {
+                    Nom = nom.Text,
+                    Prenom = prenom.Text,
+                    NoTelephone = telephone.Text,
+                    Adresse = new Adresse
+                    {
+                        Rue = adresseRue.Text,
+                        Ville = adresseVille.Text,
+                        Cp = adresseCp.Text
+                    },
+                };
+                #endregion
+
+                _controller.EditClient(selectedClient.NoClient, editClient);
+
+                // manual refresh
+                System.Diagnostics.Trace.WriteLine($"Client {selectedClient.NoClient} edited");
+                clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
+            }
+        }
+
+        private void DelClient_Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var selectedClient = GetSelectedClientFromButtonTag(sender);
             _controller.DelClient(selectedClient.NoClient);
 
-            // refresh
+            // manual refresh
+            System.Diagnostics.Trace.WriteLine($"Client {selectedClient.NoClient} deleted");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
         private void AddClient_Button_Click(object sender, RoutedEventArgs e)
         {
+            var inputDialog = new NewClientDialog();
+            if (inputDialog.ShowDialog() == true)
+            {
+                long cId = _controller.AddClient(inputDialog.NewClient);
 
+                // manual refresh
+                System.Diagnostics.Trace.WriteLine($"Client {cId} added to DB");
+                clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
+            }
         }
     }
 }

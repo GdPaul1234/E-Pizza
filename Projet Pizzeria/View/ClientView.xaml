@@ -138,13 +138,16 @@
                                   Background="#FFF0F0F0">
                             <StackPanel>
                                 <Label>Nom:</Label>
-                                <TextBox Text="{Binding SelectedItem.Nom, ElementName=clientDataGrid}"></TextBox>
+                                <TextBox Name="nom"
+                                    Text="{Binding SelectedItem.Nom, ElementName=clientDataGrid}"/>
 
                                 <Label>Prenom:</Label>
-                                <TextBox Text="{Binding SelectedItem.Prenom, ElementName=clientDataGrid}"/>
+                                <TextBox Name="prenom"
+                                    Text="{Binding SelectedItem.Prenom, ElementName=clientDataGrid}"/>
 
                                 <Label>Telephone:</Label>
-                                <TextBox Text="{Binding SelectedItem.NoTelephone, ElementName=clientDataGrid}"/>
+                                <TextBox Name="telephone" 
+                                    Text="{Binding SelectedItem.NoTelephone, ElementName=clientDataGrid}"/>
                             </StackPanel>
                         </GroupBox>
 
@@ -152,13 +155,16 @@
                                    Background="#FFF0F0F0">
                             <StackPanel>
                                 <Label>Rue:</Label>
-                                <TextBox Text="{Binding SelectedItem.Adresse.Rue, ElementName=clientDataGrid}"></TextBox>
+                                <TextBox Name="adresseRue"
+                                    Text="{Binding SelectedItem.Adresse.Rue, ElementName=clientDataGrid}"></TextBox>
 
                                 <Label>Ville:</Label>
-                                <TextBox Text="{Binding SelectedItem.Adresse.Ville, ElementName=clientDataGrid}"/>
+                                <TextBox Name="adresseVille"
+                                    Text="{Binding SelectedItem.Adresse.Ville, ElementName=clientDataGrid}"/>
 
                                 <Label>CP:</Label>
-                                <TextBox Text="{Binding SelectedItem.Adresse.Cp, ElementName=clientDataGrid}"/>
+                                <TextBox Name="adresseCp"
+                                    Text="{Binding SelectedItem.Adresse.Cp, ElementName=clientDataGrid}"/>
                             </StackPanel>
                         </GroupBox>
 
