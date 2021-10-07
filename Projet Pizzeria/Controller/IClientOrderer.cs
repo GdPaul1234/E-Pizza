@@ -1,5 +1,6 @@
 ﻿using Projet_Pizzeria.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Projet_Pizzeria.Controller
 {
@@ -13,10 +14,11 @@ namespace Projet_Pizzeria.Controller
         IClientOrderer OrderByAlphaOrder(int direction);
 
         /// <summary>
-        /// Trier par ordre alphabéthique
+        /// Trier par ordre achats cumulés
         /// </summary>
+        /// <param name="direction">direction (> 0 : ascendant, < 0 : descendant)</param>
         ///<returns></returns>
-        IClientOrderer OrderByAchatCumule();
+        IClientOrderer OrderByAchatCumule(int direction);
 
         /// <summary>
         /// Filtrer par ville
@@ -25,12 +27,14 @@ namespace Projet_Pizzeria.Controller
         ///<returns></returns>
         IClientOrderer FilterByCity(string city);
 
-        List<Client> ClientResultSet { get; set; }
+        void ResetFilter();
+
+        IQueryable<Client> ClientResultSet { get; set; }
 
         /// <summary>
         /// Collecter le résultat des filtres
         /// </summary>
         ///<returns>Résultat des filtres</returns>
-        List<Client> Collect();
+        IQueryable<Client> Collect();
     }
 }

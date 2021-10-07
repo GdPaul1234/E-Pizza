@@ -45,39 +45,47 @@
             </ToolBar>
 
             <ToolBar>
-                <RadioButton GroupName="orderName"
-                             ToolTip="Trier les noms (croissant)"
-                             ToolBar.OverflowMode="Never">
+                <ToggleButton Tag="orderName" Name="orderNameAsc"
+                             IsChecked="{Binding ToggleButtonLogic.OrderAlphaAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             ToolTip="Trier les noms (croissant)" ToolBar.OverflowMode="Never" 
+                              Click="FilterButton_Click">
                     <StackPanel>
                         <fa:ImageAwesome Icon="SortAlphaAsc" Width="16" Height="16"/>
                         <TextBlock>Nom</TextBlock>
                     </StackPanel>
-                </RadioButton>
+                </ToggleButton>
 
-                <RadioButton GroupName="orderName" ToolTip="Trier les noms (desc.)">
+                <ToggleButton Tag="orderName" Name="orderNameDesc"
+                             IsChecked="{Binding ToggleButtonLogic.OrderAlphaDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             ToolTip="Trier les noms (desc.)"
+                              Click="FilterButton_Click">
                     <StackPanel>
                         <fa:ImageAwesome Icon="SortAlphaDesc" Width="16" Height="16"/>
                         <TextBlock>Nom</TextBlock>
                     </StackPanel>
-                </RadioButton>
+                </ToggleButton>
 
                 <Separator/>
 
-                <RadioButton GroupName="orderAchats" ToolTip="Trier le montant des achats cumulés (croissant)">
+                <ToggleButton Tag="orderAchats" Name="orderAchatsAsc"
+                             IsChecked="{Binding ToggleButtonLogic.OrderAchatsAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             ToolTip="Trier le montant des achats cumulés (croissant)"
+                              Click="FilterButton_Click">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="SortAmountAsc" Width="16" Height="16"/>
+                        <fa:ImageAwesome Icon="SortNumericAsc" Width="16" Height="16"/>
                         <TextBlock>Achats</TextBlock>
                     </StackPanel>
-                </RadioButton>
+                </ToggleButton>
 
-                <RadioButton GroupName="orderAchats" 
-                             ToolTip="Trier le montant des achats cumulés (desc.)" 
-                             ToolBar.OverflowMode="Never">
+                <ToggleButton Tag="orderAchats" Name="orderAchatsDesc" 
+                             IsChecked="{Binding ToggleButtonLogic.OrderAchatsDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             ToolTip="Trier le montant des achats cumulés (desc.)" ToolBar.OverflowMode="Never"
+                              Click="FilterButton_Click">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="SortAmountDesc" Width="16" Height="16"/>
+                        <fa:ImageAwesome Icon="SortNumericDesc" Width="16" Height="16"/>
                         <TextBlock>Achats</TextBlock>
                     </StackPanel>
-                </RadioButton>
+                </ToggleButton>
 
                 <Separator/>
 
@@ -86,6 +94,14 @@
                     <TextBlock HorizontalAlignment="Center">Ville</TextBlock>
                 </StackPanel>
 
+                <Separator/>
+
+                <Button ToolTip="Réinitialiser les filtres" Click="Reset_Button_Click" >
+                    <StackPanel>
+                        <fa:ImageAwesome Icon="Recycle" Width="16" Height="16"/>
+                        <TextBlock>Reset</TextBlock>
+                    </StackPanel>
+                </Button>
             </ToolBar>
         </ToolBarTray>
 
@@ -119,10 +135,10 @@
                 <DataGrid x:Name="clientDataGrid" AutoGenerateColumns="False" 
                   EnableRowVirtualization="True" IsReadOnly="True"
                   ItemsSource="{Binding Source={StaticResource clientViewSource}}" 
-                  RowDetailsVisibilityMode="VisibleWhenSelected">
+                  RowDetailsVisibilityMode="VisibleWhenSelected" Sorting="ClientDataGrid_DisableSorting">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding NoClient}" Header="No Client" Width="SizeToHeader"/>
-                        <DataGridTextColumn Binding="{Binding Nom}" Header="Nom"  Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" Width="*"/>
                         <DataGridTextColumn Binding="{Binding Prenom}" Header="Prénom"  Width="*"/>
                         <DataGridTextColumn Binding="{Binding MontantAchatCumule}" Header="Achats Cumulés (€)"  Width="SizeToHeader"/>
                         <DataGridTextColumn Binding="{Binding Adresse.Ville}" Header="Ville"  Width="100"/>

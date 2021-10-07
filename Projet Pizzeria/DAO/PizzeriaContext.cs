@@ -4,7 +4,7 @@ using System;
 
 namespace Projet_Pizzeria.DAO
 {
-    class PizzeriaContext : DbContext
+    public class PizzeriaContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<Commis> Commis { get; set; }

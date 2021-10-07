@@ -1,4 +1,5 @@
 
+using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.DAO;
 using Projet_Pizzeria.Model;
 using System.Collections.Generic;
@@ -9,14 +10,15 @@ namespace Projet_Pizzeria.Controller
     public class ModuleClientEffectif : IManageEffectif, IClientOrderer
     {
         private static PizzeriaContext pizzeriaDb = null;
-        public List<Client> ClientResultSet { get; set; }
+        public IQueryable<Client> ClientResultSet { get; set; }
 
         public ModuleClientEffectif()
         {
             if (pizzeriaDb == null)
                 pizzeriaDb = new PizzeriaContext();
 
-            ClientResultSet = pizzeriaDb.Clients.ToList();
+            ClientResultSet = pizzeriaDb.Clients;
+            RefreshResultSet();
         }
 
         ~ModuleClientEffectif()  // finalizer
@@ -27,13 +29,10 @@ namespace Projet_Pizzeria.Controller
         private void RefreshResultSet()
         {
             // Refresh
-            ClientResultSet.Clear();
-            ClientResultSet.AddRange(pizzeriaDb.Clients.ToList());
+            ClientResultSet.Load();
         }
 
-        /**
-         * CRUD Client
-         **/
+        #region CRUD Client
 
         public long AddClient(Client c)
         {
@@ -69,36 +68,49 @@ namespace Projet_Pizzeria.Controller
             }
         }
 
-        /**
-         * Orderer Client
-         **/
+        #endregion // CRUD Client
+
+        #region Interface IClientOrderer
 
         public IClientOrderer OrderByAlphaOrder(int direction)
         {
             if (direction > 0)
-                ClientResultSet = ClientResultSet.OrderBy(c => c.Nom).ToList();
+                ClientResultSet = ClientResultSet.OrderBy(c => c.Nom);
             else if (direction < 0)
-                ClientResultSet = ClientResultSet.OrderByDescending(c => c.Nom).ToList();
+                ClientResultSet = ClientResultSet.OrderByDescending(c => c.Nom);
 
             return this;
         }
 
-        public IClientOrderer OrderByAchatCumule()
+        public IClientOrderer OrderByAchatCumule(int direction)
         {
-            ClientResultSet = ClientResultSet.OrderByDescending(c => c.MontantAchatCumule).ToList();
+            if (direction > 0)
+                ClientResultSet = ClientResultSet.OrderBy(c => c.MontantAchatCumule);
+            else if (direction < 0)
+                ClientResultSet = ClientResultSet.OrderByDescending(c => c.MontantAchatCumule);
             return this;
         }
 
         public IClientOrderer FilterByCity(string city)
         {
             ClientResultSet = ClientResultSet.Where(c => c.Adresse.Ville == city)
-                .OrderBy(c => c.Adresse.Ville).ToList();
+                .OrderBy(c => c.Adresse.Ville);
+
             return this;
         }
 
-        public List<Client> Collect()
+        public IQueryable<Client> Collect()
         {
+            RefreshResultSet();
             return ClientResultSet;
         }
+
+        public void ResetFilter()
+        {
+            ClientResultSet = pizzeriaDb.Clients;
+            RefreshResultSet();
+        }
+
+        #endregion // Interface IClientOrderer
     }
 }

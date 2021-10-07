@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projet_Pizzeria.View"
         mc:Ignorable="d"
-        Title="Nouveau Client" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered">
+        Title="Nouveau Client" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
+        ContentRendered="Window_ContentRendered">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
