@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.Controller;
 using Projet_Pizzeria.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -166,6 +168,30 @@ namespace Projet_Pizzeria.View
         }
 
         #endregion Filter Handler
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            if (_controller.ExportClient()
+                && _controller.ExportCommis()
+                && _controller.ExportLivreur())
+            {
+                var sep = Path.DirectorySeparatorChar;
+                var sourceDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var DbFolderPath = $"{sourceDir}{sep}Pizzeria";
+                var exportFNames = new string[] { "clients.db", "commis.db", "livreurs.db" };
+                var backupDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}{sep}PizzeriaBackup";
+
+                Directory.CreateDirectory(backupDir);
+
+                foreach (var fName in exportFNames)
+                {
+                    File.Copy(Path.Combine(DbFolderPath, fName), Path.Combine(backupDir, fName), true);
+                }
+
+                System.Diagnostics.Process.Start("explorer.exe", backupDir);
+                System.Diagnostics.Trace.WriteLine($"Export successfully!");
+            }
+        }
     }
 
     #region ToggleButton Logic

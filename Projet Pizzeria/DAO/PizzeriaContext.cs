@@ -7,6 +7,8 @@ namespace Projet_Pizzeria.DAO
     public class PizzeriaContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Adresse> Adresses { get; set; }
+
         public DbSet<Commis> Commis { get; set; }
         public DbSet<Livreur> Livreurs { get; set; }
 

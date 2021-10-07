@@ -7,6 +7,8 @@ namespace Projet_Pizzeria.Model
     {
         [Key]
         public long NoCmmis { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
 
         public int NbDeCommandeGeree { get; private set; }
 

@@ -9,8 +9,8 @@ using Projet_Pizzeria.DAO;
 namespace Projet_Pizzeria.Migrations.Pizzeria
 {
     [DbContext(typeof(PizzeriaContext))]
-    [Migration("20211005211847_Update1PizzeriaContext")]
-    partial class Update1PizzeriaContext
+    [Migration("20211007181106_Update3.1PizzeriaContext")]
+    partial class Update31PizzeriaContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace Projet_Pizzeria.Migrations.Pizzeria
 
                     b.HasKey("AdresseId");
 
-                    b.ToTable("Adresse");
+                    b.ToTable("Adresses");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Client", b =>
@@ -190,7 +190,7 @@ namespace Projet_Pizzeria.Migrations.Pizzeria
             modelBuilder.Entity("Projet_Pizzeria.Model.Commande", b =>
                 {
                     b.HasOne("Projet_Pizzeria.Model.Client", "Client")
-                        .WithMany()
+                        .WithMany("Commandes")
                         .HasForeignKey("ClientNoClient");
                 });
 #pragma warning restore 612, 618

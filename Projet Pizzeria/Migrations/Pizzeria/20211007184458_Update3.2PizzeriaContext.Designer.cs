@@ -9,8 +9,8 @@ using Projet_Pizzeria.DAO;
 namespace Projet_Pizzeria.Migrations.Pizzeria
 {
     [DbContext(typeof(PizzeriaContext))]
-    [Migration("20211005115205_InitialPizzeriaCreate")]
-    partial class InitialPizzeriaCreate
+    [Migration("20211007184458_Update3.2PizzeriaContext")]
+    partial class Update32PizzeriaContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace Projet_Pizzeria.Migrations.Pizzeria
 
                     b.HasKey("AdresseId");
 
-                    b.ToTable("Adresse");
+                    b.ToTable("Adresses");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Client", b =>
@@ -77,6 +77,9 @@ namespace Projet_Pizzeria.Migrations.Pizzeria
 
                     b.Property<DateTime>("DatePremiereCommande")
                         .HasColumnType("TEXT");
+
+                    b.Property<double>("MontantAchatCumule")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("NoTelephone")
                         .HasColumnType("TEXT");
@@ -128,6 +131,12 @@ namespace Projet_Pizzeria.Migrations.Pizzeria
                     b.Property<int>("NbDeCommandeGeree")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("NoCmmis");
 
                     b.ToTable("Commis");
@@ -141,6 +150,12 @@ namespace Projet_Pizzeria.Migrations.Pizzeria
 
                     b.Property<int>("NbLivraisonEffectue")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("NoLivreur");
 
@@ -187,7 +202,7 @@ namespace Projet_Pizzeria.Migrations.Pizzeria
             modelBuilder.Entity("Projet_Pizzeria.Model.Commande", b =>
                 {
                     b.HasOne("Projet_Pizzeria.Model.Client", "Client")
-                        .WithMany()
+                        .WithMany("Commandes")
                         .HasForeignKey("ClientNoClient");
                 });
 #pragma warning restore 612, 618

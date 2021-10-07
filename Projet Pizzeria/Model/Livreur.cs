@@ -6,6 +6,8 @@ namespace Projet_Pizzeria.Model
     {
         [Key]
         public long NoLivreur { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
 
         public int NbLivraisonEffectue { get; set; }
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Projet_Pizzeria.Controller
 {
-    public class ModuleClientEffectif : IManageEffectif, IClientOrderer
+    public partial class ModuleClientEffectif : IManageEffectif, IClientOrderer
     {
         private static PizzeriaContext pizzeriaDb = null;
         public IQueryable<Client> ClientResultSet { get; set; }
