@@ -2,7 +2,6 @@ namespace Projet_Pizzeria.Model.Controller
 {
     public class ModuleCommandes
     {
-
         public ModuleCommandes()
         {
         }
@@ -21,7 +20,7 @@ namespace Projet_Pizzeria.Model.Controller
         }
 
         /// <summary>
-        /// @param c 
+        /// @param c
         /// @return
         /// </summary>
         public Commande EditCommande(Client c)
@@ -31,7 +30,7 @@ namespace Projet_Pizzeria.Model.Controller
         }
 
         /// <summary>
-        /// @param noCommande  
+        /// @param noCommande
         /// @return
         /// </summary>
         public double CalculerPrixCommande(long noCommande)
@@ -41,7 +40,7 @@ namespace Projet_Pizzeria.Model.Controller
         }
 
         /// <summary>
-        /// @param long nbCommande 
+        /// @param long nbCommande
         /// @return
         /// </summary>
         public Commande GetCommandeByNumber(long nbCommande)
@@ -49,7 +48,5 @@ namespace Projet_Pizzeria.Model.Controller
             // TODO implement here
             return null;
         }
-
     }
 }
-

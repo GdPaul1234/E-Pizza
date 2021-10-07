@@ -2,7 +2,6 @@ namespace Projet_Pizzeria.Model
 {
     public interface IManageEffectif
     {
-
         /// <summary>
         /// Ajouter un client dans la db de la pizerria
         /// </summary>
@@ -23,6 +22,5 @@ namespace Projet_Pizzeria.Model
         /// <param name="noClient">idClient à éditer</param>
         /// <returns></returns>
         void DelClient(long noClient);
-
     }
 }

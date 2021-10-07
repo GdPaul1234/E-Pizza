@@ -1,104 +1,142 @@
-﻿<UserControl x:Class="Projet_Pizzeria.View.ClientView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Projet_Pizzeria.View"
-             xmlns:fa="http://schemas.fontawesome.io/icons/"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+﻿<UserControl
+    x:Class="Projet_Pizzeria.View.ClientView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
+    xmlns:local="clr-namespace:Projet_Pizzeria.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
 
     <UserControl.Resources>
-        <CollectionViewSource x:Key="clientViewSource"/>
-        <CollectionViewSource x:Key="clientCommandesViewSource" 
-                              Source="{Binding Commandes, Source={StaticResource clientViewSource}}"/>
-        <CollectionViewSource x:Key="commandeItemsViewSource" 
-                              Source="{Binding Items, Source={StaticResource clientCommandesViewSource}}"/>
+        <CollectionViewSource x:Key="clientViewSource" />
+        <CollectionViewSource x:Key="clientCommandesViewSource" Source="{Binding Commandes, Source={StaticResource clientViewSource}}" />
+        <CollectionViewSource x:Key="commandeItemsViewSource" Source="{Binding Items, Source={StaticResource clientCommandesViewSource}}" />
     </UserControl.Resources>
 
     <DockPanel>
-        <!-- Toolbar -->
+        <!--  Toolbar  -->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
                 <Button ToolTip="Ouvrir une sauvegarde">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="FolderOpen" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="FolderOpen" />
                         <TextBlock>Ouvrir</TextBlock>
                     </StackPanel>
                 </Button>
 
                 <Button ToolTip="Exporter dans un fichier">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="Share" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="Share" />
                         <TextBlock>Export.</TextBlock>
                     </StackPanel>
                 </Button>
             </ToolBar>
 
             <ToolBar>
-                <Button ToolTip="Ajouter un client" Click="AddClient_Button_Click">
+                <Button Click="AddClient_Button_Click" ToolTip="Ajouter un client">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="UserPlus" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="UserPlus" />
                         <TextBlock>Nouv. client</TextBlock>
                     </StackPanel>
                 </Button>
             </ToolBar>
 
             <ToolBar>
-                <ToggleButton Tag="orderName" Name="orderNameAsc"
-                             IsChecked="{Binding ToggleButtonLogic.OrderAlphaAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             ToolTip="Trier les noms (croissant)" ToolBar.OverflowMode="Never" 
-                              Click="FilterButton_Click">
+                <ToggleButton
+                    Name="orderNameAsc"
+                    Click="FilterButton_Click"
+                    IsChecked="{Binding ToggleButtonLogic.OrderAlphaAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="orderName"
+                    ToolBar.OverflowMode="Never"
+                    ToolTip="Trier les noms (croissant)">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="SortAlphaAsc" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="SortAlphaAsc" />
                         <TextBlock>Nom</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
-                <ToggleButton Tag="orderName" Name="orderNameDesc"
-                             IsChecked="{Binding ToggleButtonLogic.OrderAlphaDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             ToolTip="Trier les noms (desc.)"
-                              Click="FilterButton_Click">
+                <ToggleButton
+                    Name="orderNameDesc"
+                    Click="FilterButton_Click"
+                    IsChecked="{Binding ToggleButtonLogic.OrderAlphaDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="orderName"
+                    ToolTip="Trier les noms (desc.)">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="SortAlphaDesc" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="SortAlphaDesc" />
                         <TextBlock>Nom</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
-                <Separator/>
+                <Separator />
 
-                <ToggleButton Tag="orderAchats" Name="orderAchatsAsc"
-                             IsChecked="{Binding ToggleButtonLogic.OrderAchatsAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             ToolTip="Trier le montant des achats cumulés (croissant)"
-                              Click="FilterButton_Click">
+                <ToggleButton
+                    Name="orderAchatsAsc"
+                    Click="FilterButton_Click"
+                    IsChecked="{Binding ToggleButtonLogic.OrderAchatsAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="orderAchats"
+                    ToolTip="Trier le montant des achats cumulés (croissant)">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="SortNumericAsc" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="SortNumericAsc" />
                         <TextBlock>Achats</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
-                <ToggleButton Tag="orderAchats" Name="orderAchatsDesc" 
-                             IsChecked="{Binding ToggleButtonLogic.OrderAchatsDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             ToolTip="Trier le montant des achats cumulés (desc.)" ToolBar.OverflowMode="Never"
-                              Click="FilterButton_Click">
+                <ToggleButton
+                    Name="orderAchatsDesc"
+                    Click="FilterButton_Click"
+                    IsChecked="{Binding ToggleButtonLogic.OrderAchatsDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="orderAchats"
+                    ToolBar.OverflowMode="Never"
+                    ToolTip="Trier le montant des achats cumulés (desc.)">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="SortNumericDesc" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="SortNumericDesc" />
                         <TextBlock>Achats</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
-                <Separator/>
+                <Separator />
 
                 <StackPanel>
-                    <TextBox Name="CitySearch" Width="100" TextChanged="CitySearch_TextChanged"/>
+                    <TextBox
+                        Name="CitySearch"
+                        Width="100"
+                        TextChanged="CitySearch_TextChanged" />
                     <TextBlock HorizontalAlignment="Center">Ville</TextBlock>
                 </StackPanel>
 
-                <Separator/>
+                <Separator />
 
-                <Button ToolTip="Réinitialiser les filtres" Click="Reset_Button_Click" >
+                <Button Click="Reset_Button_Click" ToolTip="Réinitialiser les filtres">
                     <StackPanel>
-                        <fa:ImageAwesome Icon="Recycle" Width="16" Height="16"/>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="Recycle" />
                         <TextBlock>Reset</TextBlock>
                     </StackPanel>
                 </Button>
@@ -117,114 +155,142 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <!-- 
-            WPF: Grid with column/row margin/padding?
-            https://stackoverflow.com/questions/1319974/wpf-grid-with-column-row-margin-padding 
+            <!--
+                WPF: Grid with column/row margin/padding?
+                https://stackoverflow.com/questions/1319974/wpf-grid-with-column-row-margin-padding
             -->
-            <Grid.Resources >
-                <Style TargetType="Border" >
+            <Grid.Resources>
+                <Style TargetType="Border">
                     <Setter Property="Padding" Value="5,5,5,5" />
                 </Style>
             </Grid.Resources>
 
-            <!-- 
-            Getting Started with WPF
-            https://docs.microsoft.com/en-us/ef/core/get-started/wpf 
+            <!--
+                Getting Started with WPF
+                https://docs.microsoft.com/en-us/ef/core/get-started/wpf
             -->
             <Border Grid.ColumnSpan="2">
-                <DataGrid x:Name="clientDataGrid" AutoGenerateColumns="False" 
-                  EnableRowVirtualization="True" IsReadOnly="True"
-                  ItemsSource="{Binding Source={StaticResource clientViewSource}}" 
-                  RowDetailsVisibilityMode="VisibleWhenSelected" Sorting="ClientDataGrid_DisableSorting">
+                <DataGrid
+                    x:Name="clientDataGrid"
+                    AutoGenerateColumns="False"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource clientViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    Sorting="ClientDataGrid_DisableSorting">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding NoClient}" Header="No Client" Width="SizeToHeader"/>
-                        <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding Prenom}" Header="Prénom"  Width="*"/>
-                        <DataGridTextColumn Binding="{Binding MontantAchatCumule}" Header="Achats Cumulés (€)"  Width="SizeToHeader"/>
-                        <DataGridTextColumn Binding="{Binding Adresse.Ville}" Header="Ville"  Width="100"/>
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding NoClient}"
+                            Header="No Client" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Nom}"
+                            Header="Nom" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Prenom}"
+                            Header="Prénom" />
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding MontantAchatCumule}"
+                            Header="Achats Cumulés (€)" />
+                        <DataGridTextColumn
+                            Width="100"
+                            Binding="{Binding Adresse.Ville}"
+                            Header="Ville" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
 
-            <!-- Info personne -->
-            <Border Grid.Column="2" Grid.RowSpan="2" Margin="0">
+            <!--  Info personne  -->
+            <Border
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Margin="0">
                 <ScrollViewer>
                     <StackPanel Margin="0,0,5,0">
-                        <GroupBox Header="Informations pers."  
-                                  Background="#FFF0F0F0">
+                        <GroupBox Background="#FFF0F0F0" Header="Informations pers.">
                             <StackPanel>
                                 <Label>Nom:</Label>
-                                <TextBox Name="nom"
-                                    Text="{Binding SelectedItem.Nom, ElementName=clientDataGrid}"/>
+                                <TextBox Name="nom" Text="{Binding SelectedItem.Nom, ElementName=clientDataGrid}" />
 
                                 <Label>Prenom:</Label>
-                                <TextBox Name="prenom"
-                                    Text="{Binding SelectedItem.Prenom, ElementName=clientDataGrid}"/>
+                                <TextBox Name="prenom" Text="{Binding SelectedItem.Prenom, ElementName=clientDataGrid}" />
 
                                 <Label>Telephone:</Label>
-                                <TextBox Name="telephone" 
-                                    Text="{Binding SelectedItem.NoTelephone, ElementName=clientDataGrid}"/>
+                                <TextBox Name="telephone" Text="{Binding SelectedItem.NoTelephone, ElementName=clientDataGrid}" />
                             </StackPanel>
                         </GroupBox>
 
-                        <GroupBox Header="Adresse"
-                                   Background="#FFF0F0F0">
+                        <GroupBox Background="#FFF0F0F0" Header="Adresse">
                             <StackPanel>
                                 <Label>Rue:</Label>
-                                <TextBox Name="adresseRue"
-                                    Text="{Binding SelectedItem.Adresse.Rue, ElementName=clientDataGrid}"></TextBox>
+                                <TextBox Name="adresseRue" Text="{Binding SelectedItem.Adresse.Rue, ElementName=clientDataGrid}" />
 
                                 <Label>Ville:</Label>
-                                <TextBox Name="adresseVille"
-                                    Text="{Binding SelectedItem.Adresse.Ville, ElementName=clientDataGrid}"/>
+                                <TextBox Name="adresseVille" Text="{Binding SelectedItem.Adresse.Ville, ElementName=clientDataGrid}" />
 
                                 <Label>CP:</Label>
-                                <TextBox Name="adresseCp"
-                                    Text="{Binding SelectedItem.Adresse.Cp, ElementName=clientDataGrid}"/>
+                                <TextBox Name="adresseCp" Text="{Binding SelectedItem.Adresse.Cp, ElementName=clientDataGrid}" />
                             </StackPanel>
                         </GroupBox>
 
                         <WrapPanel HorizontalAlignment="Center">
-                            <WrapPanel.Resources >
-                                <Style TargetType="Button" >
+                            <WrapPanel.Resources>
+                                <Style TargetType="Button">
                                     <Setter Property="Margin" Value="5,5,5,5" />
                                 </Style>
                             </WrapPanel.Resources>
 
-                            <Button Click="EditClient_Button_Click" >Val. édition</Button>
-                            <Button Click="DelClient_Button_Click"
-                                     Tag="{Binding SelectedItem,  ElementName=clientDataGrid}">
+                            <Button Click="EditClient_Button_Click">Val. édition</Button>
+                            <Button Click="DelClient_Button_Click" Tag="{Binding SelectedItem, ElementName=clientDataGrid}">
                                 Suppr. client
                             </Button>
                         </WrapPanel>
                     </StackPanel>
                 </ScrollViewer>
-
             </Border>
 
-
-            <!-- Commande Details Grid -->
+            <!--  Commande Details Grid  -->
             <Border Grid.Row="1">
-                <DataGrid x:Name="commandesDataGrid" AutoGenerateColumns="False" 
-                  EnableRowVirtualization="True" IsReadOnly="True"
-                  ItemsSource="{Binding Source={StaticResource clientCommandesViewSource}}" 
-                  RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid
+                    x:Name="commandesDataGrid"
+                    AutoGenerateColumns="False"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource clientCommandesViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding NoClient}" Header="No Client" Width="SizeToHeader"/>
-                        <DataGridTextColumn Binding="{Binding DateHeureCommande}" Header="Date commande" Width="SizeToHeader"/>
-                        <DataGridTextColumn Binding="{Binding MontantTotal}" Header="Montant (€)" Width="SizeToHeader"/>
-                        <DataGridTextColumn Binding="{Binding Commis.NoCmmis}" Header="Servi par" Width="SizeToHeader"/>
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding NoClient}"
+                            Header="No Client" />
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding DateHeureCommande}"
+                            Header="Date commande" />
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding MontantTotal}"
+                            Header="Montant (€)" />
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding Commis.NoCmmis}"
+                            Header="Servi par" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
 
-            <!-- Item Details Grid -->
+            <!--  Item Details Grid  -->
             <Border Grid.Row="1" Grid.Column="1">
-                <DataGrid x:Name="itemsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"
-                  EnableRowVirtualization="True" 
-                  ItemsSource="{Binding Source={StaticResource commandeItemsViewSource}}" 
-                  RowDetailsVisibilityMode="VisibleWhenSelected">
-                </DataGrid>
+                <DataGrid
+                    x:Name="itemsDataGrid"
+                    AutoGenerateColumns="True"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource commandeItemsViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected" />
             </Border>
         </Grid>
     </DockPanel>

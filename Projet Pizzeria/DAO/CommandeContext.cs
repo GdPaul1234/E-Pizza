@@ -4,7 +4,7 @@ using System;
 
 namespace Projet_Pizzeria.DAO
 {
-    class CommandeContext : DbContext
+    internal class CommandeContext : DbContext
     {
         public DbSet<Commande> Commandes { get; set; }
         public DbSet<Boisson> Boisons { get; set; }

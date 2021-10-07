@@ -4,7 +4,7 @@ using System;
 
 namespace Projet_Pizzeria.DAO
 {
-    class LivreurContext : DbContext
+    internal class LivreurContext : DbContext
     {
         public DbSet<Livreur> Livreurs { get; set; }
 
@@ -29,4 +29,3 @@ namespace Projet_Pizzeria.DAO
         }
     }
 }
-

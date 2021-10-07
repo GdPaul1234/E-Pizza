@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,6 +36,5 @@ namespace Projet_Pizzeria.Model
             // TODO implement here
             return 0;
         }
-
     }
 }

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +6,6 @@ namespace Projet_Pizzeria.Model
 {
     public class Pizzeria : IImportExportEffectif
     {
-
         public String Nom { get; set; }
 
         public virtual ICollection<Client> ListClient { get; set; } = new ObservableCollection<Client>();

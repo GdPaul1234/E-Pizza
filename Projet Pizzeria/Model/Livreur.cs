@@ -9,11 +9,9 @@ namespace Projet_Pizzeria.Model
 
         public int NbLivraisonEffectue { get; set; }
 
-
         public void LivrerCommande()
         {
             // TODO implement here
         }
-
     }
 }

@@ -1,13 +1,12 @@
-﻿using Projet_Pizzeria.Controller;
+﻿using Microsoft.EntityFrameworkCore;
+using Projet_Pizzeria.Controller;
 using Projet_Pizzeria.Model;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Projet_Pizzeria.View
 {
@@ -16,7 +15,6 @@ namespace Projet_Pizzeria.View
     /// </summary>
     public partial class ClientView : UserControl
     {
-
         private readonly ModuleClientEffectif _controller = new ModuleClientEffectif();
         private readonly CollectionViewSource clientViewSource;
 
@@ -47,12 +45,14 @@ namespace Projet_Pizzeria.View
         }
 
         #region CRUD Client Handler
+
         private void EditClient_Button_Click(object sender, RoutedEventArgs e)
         {
             var selectedClient = GetSelectedClientFromButtonTag(sender);
             if (selectedClient != null)
             {
                 #region NEW CLIENT
+
                 var editClient = new Client
                 {
                     Nom = nom.Text,
@@ -65,7 +65,8 @@ namespace Projet_Pizzeria.View
                         Cp = adresseCp.Text
                     },
                 };
-                #endregion // NEW CLIENT
+
+                #endregion NEW CLIENT
 
                 _controller.EditClient(selectedClient.NoClient, editClient);
 
@@ -98,7 +99,8 @@ namespace Projet_Pizzeria.View
                 clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
             }
         }
-        #endregion // CRUD Client Handler
+
+        #endregion CRUD Client Handler
 
         #region Filter Handler
 
@@ -162,10 +164,12 @@ namespace Projet_Pizzeria.View
             System.Diagnostics.Trace.WriteLine($"Filter by city containing '{searchQuery}'");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
-        #endregion // Filter Handler
+
+        #endregion Filter Handler
     }
 
     #region ToggleButton Logic
+
     public class ToggleButtonLogic : INotifyPropertyChanged
     {
         private bool _orderAlphaAsc = false, _orderAlphaDesc = false;
@@ -228,6 +232,7 @@ namespace Projet_Pizzeria.View
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string new_Value = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(new_Value));
@@ -243,5 +248,6 @@ namespace Projet_Pizzeria.View
             OrderAchatsAsc = OrderAchatsDesc = false;
         }
     }
-    #endregion // ToggleButton Logic
+
+    #endregion ToggleButton Logic
 }

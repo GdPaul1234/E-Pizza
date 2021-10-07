@@ -2,7 +2,6 @@ namespace Projet_Pizzeria.Model
 {
     public interface IImportExportEffectif
     {
-
         void ImportClient();
 
         void ExportClient();
@@ -14,7 +13,5 @@ namespace Projet_Pizzeria.Model
         void ImportCommis();
 
         void ExportCommis();
-
     }
-
 }

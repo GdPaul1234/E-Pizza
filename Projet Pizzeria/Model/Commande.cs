@@ -43,6 +43,5 @@ namespace Projet_Pizzeria.Model
             // TODO implement here
             return null;
         }
-
     }
 }

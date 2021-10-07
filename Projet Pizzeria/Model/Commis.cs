@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,6 +24,5 @@ namespace Projet_Pizzeria.Model
         {
             // TODO implement here
         }
-
     }
 }

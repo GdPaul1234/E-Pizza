@@ -29,4 +29,3 @@ namespace Projet_Pizzeria.DAO
         }
     }
 }
-

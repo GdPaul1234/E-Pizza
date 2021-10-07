@@ -1,8 +1,6 @@
-
 using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.DAO;
 using Projet_Pizzeria.Model;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Projet_Pizzeria.Controller
@@ -68,7 +66,7 @@ namespace Projet_Pizzeria.Controller
             }
         }
 
-        #endregion // CRUD Client
+        #endregion CRUD Client
 
         #region Interface IClientOrderer
 
@@ -99,7 +97,7 @@ namespace Projet_Pizzeria.Controller
                 .OrderBy(c => c.Adresse.Ville);
 
             // L'UI doit ensuite réappliquer les filtres enregistrées
-            if(callback != null) callback();
+            if (callback != null) callback();
 
             return this;
         }
@@ -116,6 +114,6 @@ namespace Projet_Pizzeria.Controller
             RefreshResultSet();
         }
 
-        #endregion // Interface IClientOrderer
+        #endregion Interface IClientOrderer
     }
 }

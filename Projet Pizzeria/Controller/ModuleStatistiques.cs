@@ -1,4 +1,3 @@
-
 using Projet_Pizzeria.Model;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,6 @@ namespace Projet_Pizzeria.Controller
 {
     public class ModuleStatistiques
     {
-
         public ModuleStatistiques()
         {
         }
@@ -23,8 +21,8 @@ namespace Projet_Pizzeria.Controller
         }
 
         /// <summary>
-        /// @param start 
-        /// @param stop 
+        /// @param start
+        /// @param stop
         /// @return
         /// </summary>
         public List<Commande> GetCommandeBetweenTime(DateTime start, DateTime stop)
@@ -50,7 +48,5 @@ namespace Projet_Pizzeria.Controller
             // TODO implement here
             return null;
         }
-
     }
 }
-

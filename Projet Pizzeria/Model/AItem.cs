@@ -6,7 +6,5 @@ namespace Projet_Pizzeria.Model
 
         public string Nom { get; set; }
         public double Prix { get; set; }
-
-
     }
 }
