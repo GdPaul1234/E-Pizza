@@ -97,7 +97,7 @@ namespace Projet_Pizzeria.Controller
                 .OrderBy(c => c.Adresse.Ville);
 
             // L'UI doit ensuite réappliquer les filtres enregistrées
-            if (callback != null) callback();
+            callback?.Invoke();
 
             return this;
         }

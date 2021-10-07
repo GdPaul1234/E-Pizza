@@ -169,6 +169,8 @@ namespace Projet_Pizzeria.View
 
         #endregion Filter Handler
 
+        #region Import Export Handler
+
         private void Export_Click(object sender, RoutedEventArgs e)
         {
             if (_controller.ExportClient()
@@ -176,10 +178,9 @@ namespace Projet_Pizzeria.View
                 && _controller.ExportLivreur())
             {
                 var sep = Path.DirectorySeparatorChar;
-                var sourceDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                var DbFolderPath = $"{sourceDir}{sep}Pizzeria";
-                var exportFNames = new string[] { "clients.db", "commis.db", "livreurs.db" };
+                var DbFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{sep}Pizzeria";
                 var backupDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}{sep}PizzeriaBackup";
+                var exportFNames = new string[] { "clients.db", "commis.db", "livreurs.db" };
 
                 Directory.CreateDirectory(backupDir);
 
@@ -192,6 +193,15 @@ namespace Projet_Pizzeria.View
                 System.Diagnostics.Trace.WriteLine($"Export successfully!");
             }
         }
+
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            var inputDialog = new ImportPersonneDialog() { Owner = Application.Current.MainWindow };
+            inputDialog.ShowDialog();
+        }
+
+        #endregion // Import Export Handler
+
     }
 
     #region ToggleButton Logic

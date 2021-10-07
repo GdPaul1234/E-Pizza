@@ -21,7 +21,10 @@
         <!--  Toolbar  -->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Name="Import" ToolTip="Ouvrir une sauvegarde">
+                <Button
+                    Name="Import"
+                    Click="Import_Click"
+                    ToolTip="Ouvrir une sauvegarde">
                     <StackPanel>
                         <fa:ImageAwesome
                             Width="16"
