@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace Projet_Pizzeria.Controller
 {
+    public delegate void DelReApplyFilter();
+
     public interface IClientOrderer
     {
         /// <summary>
@@ -24,8 +26,9 @@ namespace Projet_Pizzeria.Controller
         /// Filtrer par ville
         /// </summary>
         /// <param name="city">Ville du client</param>
+        /// <param name="callback">Fonction qui réapplique les filtres</param>
         ///<returns></returns>
-        IClientOrderer FilterByCity(string city);
+        IClientOrderer FilterByCity(string city, DelReApplyFilter callback);
 
         void ResetFilter();
 

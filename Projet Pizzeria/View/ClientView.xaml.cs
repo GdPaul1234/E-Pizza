@@ -100,15 +100,35 @@ namespace Projet_Pizzeria.View
         }
         #endregion // CRUD Client Handler
 
+        #region Filter Handler
+
+        private void ClientDataGrid_DisableSorting(object sender, DataGridSortingEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
         {
             _controller.ResetFilter();
 
             // reset UI
             ToggleButtonLogic.ResetToggleButtons();
+            CitySearch.Text = "";
 
             // manual refresh
             System.Diagnostics.Trace.WriteLine($"Reset filter");
+            clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
+        }
+
+        private void ReApplyFilter()
+        {
+            if (ToggleButtonLogic.OrderAchatsAsc) _controller.OrderByAlphaOrder(1).Collect();
+            if (ToggleButtonLogic.OrderAchatsDesc) _controller.OrderByAlphaOrder(-1).Collect();
+            if (ToggleButtonLogic.OrderAchatsAsc) _controller.OrderByAchatCumule(1).Collect();
+            if (ToggleButtonLogic.OrderAchatsDesc) _controller.OrderByAchatCumule(-1).Collect();
+
+            // manual refresh
+            System.Diagnostics.Trace.WriteLine($"Filter re-applied");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
@@ -123,6 +143,7 @@ namespace Projet_Pizzeria.View
                 case "orderNameDesc": _controller.OrderByAlphaOrder(-1).Collect(); break;
                 case "orderAchatsAsc": _controller.OrderByAchatCumule(1).Collect(); break;
                 case "orderAchatsDesc": _controller.OrderByAchatCumule(-1).Collect(); break;
+                default: break;
             }
 
             // manual refresh
@@ -130,10 +151,18 @@ namespace Projet_Pizzeria.View
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
-        private void ClientDataGrid_DisableSorting(object sender, DataGridSortingEventArgs e)
+        private void CitySearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            e.Handled = true;
+            var citySearch = sender as TextBox;
+            var searchQuery = citySearch.Text;
+
+            _controller.FilterByCity(searchQuery, ReApplyFilter).Collect();
+
+            // manual refresh
+            System.Diagnostics.Trace.WriteLine($"Filter by city containing '{searchQuery}'");
+            clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
+        #endregion // Filter Handler
     }
 
     #region ToggleButton Logic

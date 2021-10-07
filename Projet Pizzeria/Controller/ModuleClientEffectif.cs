@@ -91,10 +91,15 @@ namespace Projet_Pizzeria.Controller
             return this;
         }
 
-        public IClientOrderer FilterByCity(string city)
+        public IClientOrderer FilterByCity(string city, DelReApplyFilter callback)
         {
-            ClientResultSet = ClientResultSet.Where(c => c.Adresse.Ville == city)
+            ResetFilter();
+
+            ClientResultSet = ClientResultSet.Where(c => c.Adresse.Ville.Contains(city))
                 .OrderBy(c => c.Adresse.Ville);
+
+            // L'UI doit ensuite réappliquer les filtres enregistrées
+            if(callback != null) callback();
 
             return this;
         }

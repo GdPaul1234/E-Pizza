@@ -90,7 +90,7 @@
                 <Separator/>
 
                 <StackPanel>
-                    <TextBox Width="100"/>
+                    <TextBox Name="CitySearch" Width="100" TextChanged="CitySearch_TextChanged"/>
                     <TextBlock HorizontalAlignment="Center">Ville</TextBlock>
                 </StackPanel>
 
