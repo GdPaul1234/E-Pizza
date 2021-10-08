@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Projet_Pizzeria.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Importation des Personnes"
+    ResizeMode="NoResize"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">

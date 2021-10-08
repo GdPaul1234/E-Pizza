@@ -35,6 +35,20 @@ namespace Projet_Pizzeria.View
             // bind to the source
             commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
         }
+
+        private void AddCommande_Click(object sender, RoutedEventArgs e)
+        {
+            var inputDialog = new NewCommandeDialog { Owner = Application.Current.MainWindow };
+
+            if (inputDialog.ShowDialog() == true)
+            {
+                // TODO ...
+
+                // manual refresh
+                // System.Diagnostics.Trace.TraceInformation($"Commande {cId} added to DB");
+                commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
+            }
+        }
     }
 
     #region ThreeStatToggleeButtonLogic

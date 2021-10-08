@@ -42,7 +42,10 @@
             </ToolBar>
 
             <ToolBar>
-                <Button ToolTip="Ajouter une commande">
+                <Button
+                    Name="AddCommande"
+                    Click="AddCommande_Click"
+                    ToolTip="Ajouter une commande">
                     <StackPanel>
                         <fa:ImageAwesome
                             Width="16"

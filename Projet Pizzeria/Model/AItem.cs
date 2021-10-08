@@ -6,5 +6,7 @@ namespace Projet_Pizzeria.Model
 
         public string Nom { get; set; }
         public double Prix { get; set; }
+
+        public override string ToString() => Nom + ": " + Prix + "€";
     }
 }
