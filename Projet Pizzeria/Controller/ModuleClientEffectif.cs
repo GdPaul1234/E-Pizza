@@ -19,11 +19,6 @@ namespace Projet_Pizzeria.Controller
             RefreshResultSet();
         }
 
-        ~ModuleClientEffectif()  // finalizer
-        {
-            pizzeriaDb.Dispose();
-        }
-
         private void RefreshResultSet()
         {
             // Refresh

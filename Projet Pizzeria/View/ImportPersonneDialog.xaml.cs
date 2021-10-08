@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Projet_Pizzeria.Controller;
+using System;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Projet_Pizzeria.View
 {
@@ -19,9 +11,14 @@ namespace Projet_Pizzeria.View
     /// </summary>
     public partial class ImportPersonneDialog : Window
     {
+        private readonly char sep = Path.DirectorySeparatorChar;
+        private readonly string DbFolderPath;
+
         public ImportPersonneDialog()
         {
             InitializeComponent();
+
+            DbFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{sep}Pizzeria";
         }
 
         private string OpenFileDialog()
@@ -51,6 +48,29 @@ namespace Projet_Pizzeria.View
 
         private void ImportClients_Click(object sender, RoutedEventArgs e)
         {
+            var _controller = new ModuleClientEffectif();
+            string filename = OpenFileDialog();
+            if (filename != null && filename.Split('\\').Last() == "clients.db")
+            {
+                File.Copy(filename, Path.Combine(DbFolderPath, "clients.db"), true);
+                try
+                {
+                    _controller.ImportClient();
+                }
+                catch (Exception err)
+                {
+                    System.Diagnostics.Trace.TraceError(err.Message);
+                    System.Diagnostics.Trace.TraceError(err?.InnerException.Message);
+                    MessageBox.Show(err?.InnerException.Message,
+                    "Erreur importation", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("L'importation a échouée.\nNom de fichier invalide (!= 'clients.db)'",
+                    "Erreur importation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -62,6 +82,11 @@ namespace Projet_Pizzeria.View
         private void ImportLivreurs_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

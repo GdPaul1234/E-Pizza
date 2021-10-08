@@ -73,7 +73,7 @@ namespace Projet_Pizzeria.View
                 _controller.EditClient(selectedClient.NoClient, editClient);
 
                 // manual refresh
-                System.Diagnostics.Trace.WriteLine($"Client {selectedClient.NoClient} edited");
+                System.Diagnostics.Trace.TraceInformation($"Client {selectedClient.NoClient} edited");
                 clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
             }
         }
@@ -81,11 +81,13 @@ namespace Projet_Pizzeria.View
         private void DelClient_Button_Click(object sender, RoutedEventArgs e)
         {
             var selectedClient = GetSelectedClientFromButtonTag(sender);
-            _controller.DelClient(selectedClient.NoClient);
-
-            // manual refresh
-            System.Diagnostics.Trace.WriteLine($"Client {selectedClient.NoClient} deleted");
-            clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
+            if(selectedClient != null)
+            {
+                _controller.DelClient(selectedClient.NoClient);
+                // manual refresh
+                System.Diagnostics.Trace.TraceInformation($"Client {selectedClient.NoClient} deleted");
+                clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
+            }
         }
 
         private void AddClient_Button_Click(object sender, RoutedEventArgs e)
@@ -97,7 +99,7 @@ namespace Projet_Pizzeria.View
                 long cId = _controller.AddClient(inputDialog.NewClient);
 
                 // manual refresh
-                System.Diagnostics.Trace.WriteLine($"Client {cId} added to DB");
+                System.Diagnostics.Trace.TraceInformation($"Client {cId} added to DB");
                 clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
             }
         }
@@ -120,7 +122,7 @@ namespace Projet_Pizzeria.View
             CitySearch.Text = "";
 
             // manual refresh
-            System.Diagnostics.Trace.WriteLine($"Reset filter");
+            System.Diagnostics.Trace.TraceInformation($"Reset filter");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
@@ -132,7 +134,7 @@ namespace Projet_Pizzeria.View
             if (ToggleButtonLogic.OrderAchatsDesc) _controller.OrderByAchatCumule(-1).Collect();
 
             // manual refresh
-            System.Diagnostics.Trace.WriteLine($"Filter re-applied");
+            System.Diagnostics.Trace.TraceInformation($"Filter re-applied");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
@@ -151,7 +153,7 @@ namespace Projet_Pizzeria.View
             }
 
             // manual refresh
-            System.Diagnostics.Trace.WriteLine($"Filter applied");
+            System.Diagnostics.Trace.TraceInformation($"Filter applied");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
@@ -163,7 +165,7 @@ namespace Projet_Pizzeria.View
             _controller.FilterByCity(searchQuery, ReApplyFilter).Collect();
 
             // manual refresh
-            System.Diagnostics.Trace.WriteLine($"Filter by city containing '{searchQuery}'");
+            System.Diagnostics.Trace.TraceInformation($"Filter by city containing '{searchQuery}'");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
@@ -173,10 +175,12 @@ namespace Projet_Pizzeria.View
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
-            if (_controller.ExportClient()
-                && _controller.ExportCommis()
-                && _controller.ExportLivreur())
+            try
             {
+                _controller.ExportClient();
+                _controller.ExportCommis();
+                _controller.ExportLivreur();
+
                 var sep = Path.DirectorySeparatorChar;
                 var DbFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{sep}Pizzeria";
                 var backupDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}{sep}PizzeriaBackup";
@@ -190,14 +194,25 @@ namespace Projet_Pizzeria.View
                 }
 
                 System.Diagnostics.Process.Start("explorer.exe", backupDir);
-                System.Diagnostics.Trace.WriteLine($"Export successfully!");
+                System.Diagnostics.Trace.TraceInformation("Export successfully!");
+            }
+            catch(Exception err)
+            {
+                System.Diagnostics.Trace.TraceError(err.StackTrace);
             }
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
         {
             var inputDialog = new ImportPersonneDialog() { Owner = Application.Current.MainWindow };
-            inputDialog.ShowDialog();
+
+            if(inputDialog.ShowDialog() == true) {
+                // manual refresh
+                System.Diagnostics.Trace.TraceInformation("Import successfully!");
+                clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
+            }
+
+
         }
 
         #endregion // Import Export Handler

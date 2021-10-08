@@ -38,7 +38,7 @@
             Grid.Row="1"
             Margin="0,5"
             HorizontalAlignment="Center">
-            <Button IsCancel="True">Fermer</Button>
+            <Button Click="OKButton_Click" IsDefault="True">Fermer</Button>
         </WrapPanel>
     </Grid>
 </Window>

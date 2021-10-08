@@ -13,8 +13,8 @@ namespace Projet_Pizzeria.Model
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string NoTelephone { get; set; }
-        public DateTime DatePremiereCommande { get; private set; }
-        public double MontantAchatCumule { get; private set; }
+        public DateTime DatePremiereCommande { get; set; }
+        public double MontantAchatCumule { get; set; }
 
         public virtual ICollection<Commande> Commandes { get; private set; } = new ObservableCollection<Commande>();
 
