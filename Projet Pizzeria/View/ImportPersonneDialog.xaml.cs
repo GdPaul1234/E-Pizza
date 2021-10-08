@@ -46,22 +46,30 @@ namespace Projet_Pizzeria.View
             return null;
         }
 
-        private void ImportClients_Click(object sender, RoutedEventArgs e)
+        private void ImportEntity(string entityName)
         {
             var _controller = new ModuleClientEffectif();
             string filename = OpenFileDialog();
-            if (filename != null && filename.Split('\\').Last() == "clients.db")
+            if (filename != null && filename.Split('\\').Last() == entityName)
             {
-                File.Copy(filename, Path.Combine(DbFolderPath, "clients.db"), true);
+                File.Copy(filename, Path.Combine(DbFolderPath, entityName), true);
                 try
                 {
+                    switch(entityName)
+                    {
+                        case "clients.db": _controller.ImportClient(); break;
+                        case "commis.db": _controller.ImportCommis(); break;
+                        case "livreurs.db": _controller.ImportLivreur(); break;
+                        default: MessageBox.Show("Nous nous prenons pas encore en charge ce fichier", 
+                            "Erreur importation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            break;
+                    }
                     _controller.ImportClient();
                 }
                 catch (Exception err)
                 {
                     System.Diagnostics.Trace.TraceError(err.Message);
-                    System.Diagnostics.Trace.TraceError(err?.InnerException.Message);
-                    MessageBox.Show(err?.InnerException.Message,
+                    MessageBox.Show(err.Message,
                     "Erreur importation", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
@@ -71,17 +79,21 @@ namespace Projet_Pizzeria.View
                 MessageBox.Show("L'importation a échouée.\nNom de fichier invalide (!= 'clients.db)'",
                     "Erreur importation", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
+        private void ImportClients_Click(object sender, RoutedEventArgs e)
+        {
+            ImportEntity("clients.db");
         }
 
         private void ImportCommis_Click(object sender, RoutedEventArgs e)
         {
-
+            ImportEntity("commis.db");
         }
 
         private void ImportLivreurs_Click(object sender, RoutedEventArgs e)
         {
-
+            ImportEntity("livreurs.db");
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)

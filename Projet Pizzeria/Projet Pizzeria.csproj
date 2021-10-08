@@ -180,7 +180,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Comparer\ClientComparator.cs" />
+    <Compile Include="Model\Comparer\ClientComparer.cs" />
     <Compile Include="Controller\ModuleClientEffectifImportExport.cs" />
     <Compile Include="Migrations\20211007175630_Update3ClientContext.cs" />
     <Compile Include="Migrations\20211007175630_Update3ClientContext.designer.cs">
@@ -203,6 +203,8 @@
       <DependentUpon>20211007184458_Update3.2PizzeriaContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Pizzeria\PizzeriaContextModelSnapshot.cs" />
+    <Compile Include="Model\Comparer\CommisComparer.cs" />
+    <Compile Include="Model\Comparer\LivreurComparer.cs" />
     <Compile Include="View\ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
     </Compile>

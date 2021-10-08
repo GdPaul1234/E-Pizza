@@ -36,9 +36,9 @@ namespace Projet_Pizzeria.Controller
             {
                 _clientContext.Database.EnsureCreated();
                 {
-                    // TODO FIX ME
                     var listClientImport = _clientContext.Clients.ToList()
                         .Except(_pizzeriaContext.Clients.ToList(), new ClientComparer());
+
                     foreach (Client client in listClientImport)
                     {
                         _pizzeriaContext.Add(new Client
@@ -81,12 +81,23 @@ namespace Projet_Pizzeria.Controller
 
         public void ImportCommis()
         {
-            using (var _pizzeriaContext = new PizzeriaContext())
+            var _pizzeriaContext = new PizzeriaContext();
             using (var _commisContext = new CommisContext())
             {
                 _commisContext.Database.EnsureCreated();
                 {
-                    _pizzeriaContext.Commis.AddRange(_commisContext.Commis);
+                    var listCommisImport = _commisContext.Commis.ToList()
+                        .Except(_pizzeriaContext.Commis.ToList(), new CommisComparer());
+
+                    foreach (Commis commis in listCommisImport)
+                    {
+                        _pizzeriaContext.Add(new Commis
+                        {
+                            Nom = commis.Nom,
+                            Prenom = commis.Prenom,
+                        });
+                    }
+
                     _pizzeriaContext.SaveChanges();
                 }
             }
@@ -113,12 +124,23 @@ namespace Projet_Pizzeria.Controller
 
         public void ImportLivreur()
         {
-            using (var _pizzeriaContext = new PizzeriaContext())
+            var _pizzeriaContext = new PizzeriaContext();
             using (var _livreurContext = new LivreurContext())
             {
                 _livreurContext.Database.EnsureCreated();
                 {
-                    _pizzeriaContext.Livreurs.AddRange(_livreurContext.Livreurs);
+                    var listLivreursImport = _livreurContext.Livreurs.ToList()
+                        .Except(_pizzeriaContext.Livreurs.ToList(), new LivreurComparer());
+
+                    foreach (Livreur livreur in listLivreursImport)
+                    {
+                        _pizzeriaContext.Add(new Livreur
+                        {
+                            Nom = livreur.Nom,
+                            Prenom = livreur.Prenom,
+                        });
+                    }
+
                     _pizzeriaContext.SaveChanges();
                 }
             }
