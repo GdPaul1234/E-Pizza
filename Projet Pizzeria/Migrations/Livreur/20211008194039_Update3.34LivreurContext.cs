@@ -2,7 +2,7 @@
 
 namespace Projet_Pizzeria.Migrations.Livreur
 {
-    public partial class InitialLivreurCreate : Migration
+    public partial class Update334LivreurContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,6 +12,8 @@ namespace Projet_Pizzeria.Migrations.Livreur
                 {
                     NoLivreur = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Nom = table.Column<string>(nullable: true),
+                    Prenom = table.Column<string>(nullable: true),
                     NbLivraisonEffectue = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

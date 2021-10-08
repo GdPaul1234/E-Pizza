@@ -180,29 +180,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DAO\AItemDataStore.cs" />
+    <Compile Include="Migrations\20211008193930_Update3.34PizzaContext.cs" />
+    <Compile Include="Migrations\20211008193930_Update3.34PizzaContext.designer.cs">
+      <DependentUpon>20211008193930_Update3.34PizzaContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Client\20211008194002_Update3.34PClientContext.cs" />
+    <Compile Include="Migrations\Client\20211008194002_Update3.34PClientContext.designer.cs">
+      <DependentUpon>20211008194002_Update3.34PClientContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Client\ClientContextModelSnapshot.cs" />
+    <Compile Include="Migrations\Commande\20211008194056_Update3.34CommandeContext.cs" />
+    <Compile Include="Migrations\Commande\20211008194056_Update3.34CommandeContext.designer.cs">
+      <DependentUpon>20211008194056_Update3.34CommandeContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Commande\CommandeContextModelSnapshot.cs" />
+    <Compile Include="Migrations\Commis\20211008194017_Update3.34PCommisContext.cs" />
+    <Compile Include="Migrations\Commis\20211008194017_Update3.34PCommisContext.designer.cs">
+      <DependentUpon>20211008194017_Update3.34PCommisContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Commis\CommisContextModelSnapshot.cs" />
+    <Compile Include="Migrations\Livreur\20211008194039_Update3.34LivreurContext.cs" />
+    <Compile Include="Migrations\Livreur\20211008194039_Update3.34LivreurContext.designer.cs">
+      <DependentUpon>20211008194039_Update3.34LivreurContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Livreur\LivreurContextModelSnapshot.cs" />
+    <Compile Include="Migrations\PizzeriaContextModelSnapshot.cs" />
     <Compile Include="Model\Comparer\ClientComparer.cs" />
     <Compile Include="Controller\ModuleClientEffectifImportExport.cs" />
-    <Compile Include="Migrations\20211007175630_Update3ClientContext.cs" />
-    <Compile Include="Migrations\20211007175630_Update3ClientContext.designer.cs">
-      <DependentUpon>20211007175630_Update3ClientContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20211007184343_Update3.1ClientContext.cs" />
-    <Compile Include="Migrations\20211007184343_Update3.1ClientContext.designer.cs">
-      <DependentUpon>20211007184343_Update3.1ClientContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Livreur\20211007184411_Update3.1LivreurContext.cs" />
-    <Compile Include="Migrations\Livreur\20211007184411_Update3.1LivreurContext.designer.cs">
-      <DependentUpon>20211007184411_Update3.1LivreurContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Pizzeria\20211007181106_Update3.1PizzeriaContext.cs" />
-    <Compile Include="Migrations\Pizzeria\20211007181106_Update3.1PizzeriaContext.designer.cs">
-      <DependentUpon>20211007181106_Update3.1PizzeriaContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Pizzeria\20211007184458_Update3.2PizzeriaContext.cs" />
-    <Compile Include="Migrations\Pizzeria\20211007184458_Update3.2PizzeriaContext.designer.cs">
-      <DependentUpon>20211007184458_Update3.2PizzeriaContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Pizzeria\PizzeriaContextModelSnapshot.cs" />
     <Compile Include="Model\Comparer\CommisComparer.cs" />
     <Compile Include="Model\Comparer\LivreurComparer.cs" />
     <Compile Include="View\ClientView.xaml.cs">
@@ -257,34 +262,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\20211005100943_InitialClientCreate.cs" />
-    <Compile Include="Migrations\20211005100943_InitialClientCreate.designer.cs">
-      <DependentUpon>20211005100943_InitialClientCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20211005211807_Update1ClientContext.cs" />
-    <Compile Include="Migrations\20211005211807_Update1ClientContext.designer.cs">
-      <DependentUpon>20211005211807_Update1ClientContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20211006090825_Update2ClientContext.cs" />
-    <Compile Include="Migrations\20211006090825_Update2ClientContext.designer.cs">
-      <DependentUpon>20211006090825_Update2ClientContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ClientContextModelSnapshot.cs" />
-    <Compile Include="Migrations\Commande\20211005101939_InitialCommandeCreate.cs" />
-    <Compile Include="Migrations\Commande\20211005101939_InitialCommandeCreate.designer.cs">
-      <DependentUpon>20211005101939_InitialCommandeCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Commande\CommandeContextModelSnapshot.cs" />
-    <Compile Include="Migrations\Commis\20211005100409_InitialCommisCreate.cs" />
-    <Compile Include="Migrations\Commis\20211005100409_InitialCommisCreate.designer.cs">
-      <DependentUpon>20211005100409_InitialCommisCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Commis\CommisContextModelSnapshot.cs" />
-    <Compile Include="Migrations\Livreur\20211005100426_InitialLivreurCreate.cs" />
-    <Compile Include="Migrations\Livreur\20211005100426_InitialLivreurCreate.designer.cs">
-      <DependentUpon>20211005100426_InitialLivreurCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Livreur\LivreurContextModelSnapshot.cs" />
     <Compile Include="Model\Adresse.cs" />
     <Compile Include="Model\AItem.cs" />
     <Compile Include="Model\Boisson.cs" />
@@ -323,7 +300,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Migrations\Pizzeria\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

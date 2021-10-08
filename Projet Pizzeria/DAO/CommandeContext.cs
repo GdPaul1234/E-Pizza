@@ -18,7 +18,7 @@ namespace Projet_Pizzeria.DAO
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
             var sep = System.IO.Path.DirectorySeparatorChar;
-            DbPath = $"{path}{sep}Pizzeria{sep}clients.db";
+            DbPath = $"{path}{sep}Pizzeria{sep}commandes.db";
         }
 
         // The following configures EF to create a Sqlite database file in the

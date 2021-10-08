@@ -273,17 +273,13 @@
                             Binding="{Binding NoClient}"
                             Header="No Client" />
                         <DataGridTextColumn
-                            Width="SizeToHeader"
+                            Width="*"
                             Binding="{Binding DateHeureCommande}"
                             Header="Date commande" />
                         <DataGridTextColumn
                             Width="SizeToHeader"
                             Binding="{Binding MontantTotal}"
                             Header="Montant (€)" />
-                        <DataGridTextColumn
-                            Width="SizeToHeader"
-                            Binding="{Binding Commis.NoCmmis}"
-                            Header="Servi par" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

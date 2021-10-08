@@ -8,8 +8,8 @@ using Projet_Pizzeria.DAO;
 namespace Projet_Pizzeria.Migrations.Livreur
 {
     [DbContext(typeof(LivreurContext))]
-    [Migration("20211005100426_InitialLivreurCreate")]
-    partial class InitialLivreurCreate
+    [Migration("20211008194039_Update3.34LivreurContext")]
+    partial class Update334LivreurContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,12 @@ namespace Projet_Pizzeria.Migrations.Livreur
 
                     b.Property<int>("NbLivraisonEffectue")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("NoLivreur");
 

@@ -2,7 +2,7 @@
 
 namespace Projet_Pizzeria.Migrations.Commis
 {
-    public partial class InitialCommisCreate : Migration
+    public partial class Update334PCommisContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,6 +12,8 @@ namespace Projet_Pizzeria.Migrations.Commis
                 {
                     NoCmmis = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Nom = table.Column<string>(nullable: true),
+                    Prenom = table.Column<string>(nullable: true),
                     NbDeCommandeGeree = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

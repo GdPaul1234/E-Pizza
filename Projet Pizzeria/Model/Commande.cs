@@ -12,10 +12,12 @@ namespace Projet_Pizzeria.Model
 
         public DateTime DateHeureCommande { get; set; }
         public string EtatCommande { get; set; }
-        public double MontantTotal { get; private set; }
+        public double MontantTotal { get; set; }
+        public int EstEncaissee { get; set; }
 
         public virtual Client Client { get; set; }
         public virtual Commis Commis { get; set; }
+        public virtual Livreur Livreur { get; set; }
 
         public virtual ICollection<AItem> Items { get; set; } = new ObservableCollection<AItem>();
 

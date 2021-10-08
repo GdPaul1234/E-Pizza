@@ -8,10 +8,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="commandeViewSource" />
+        <CollectionViewSource x:Key="commandeItemsViewSource" Source="{Binding Items, Source={StaticResource commandeViewSource}}" />
+    </UserControl.Resources>
+
     <DockPanel>
-        <!--  Toolbar  -->
+        <!--#region  Toolbar-->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
                 <Button ToolTip="Ouvrir une sauvegarde">
@@ -48,8 +54,10 @@
             </ToolBar>
 
             <ToolBar>
-                <RadioButton
-                    GroupName="stateCommande"
+                <ToggleButton
+                    Name="Preparation"
+                    IsChecked="{Binding ThreeStateToggleButtonLogic.EnPreparation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="stateCommande"
                     ToolBar.OverflowMode="Never"
                     ToolTip="Commandes en préparation">
                     <StackPanel>
@@ -59,9 +67,13 @@
                             Icon="ShoppingBasket" />
                         <TextBlock>Prép.</TextBlock>
                     </StackPanel>
-                </RadioButton>
+                </ToggleButton>
 
-                <RadioButton GroupName="stateCommande" ToolTip="Commandes en livraison">
+                <ToggleButton
+                    Name="Livraison"
+                    IsChecked="{Binding ThreeStateToggleButtonLogic.EnLivraison, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="stateCommande"
+                    ToolTip="Commandes en livraison">
                     <StackPanel>
                         <fa:ImageAwesome
                             Width="16"
@@ -69,9 +81,13 @@
                             Icon="Truck" />
                         <TextBlock>Livr.</TextBlock>
                     </StackPanel>
-                </RadioButton>
+                </ToggleButton>
 
-                <RadioButton GroupName="stateCommande" ToolTip="Commandes fermées">
+                <ToggleButton
+                    Name="Fermee"
+                    IsChecked="{Binding ThreeStateToggleButtonLogic.EnFermee, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="stateCommande"
+                    ToolTip="Commandes fermées">
                     <StackPanel>
                         <fa:ImageAwesome
                             Width="16"
@@ -79,7 +95,7 @@
                             Icon="CalendarTimesOutline" />
                         <TextBlock>Ferm.</TextBlock>
                     </StackPanel>
-                </RadioButton>
+                </ToggleButton>
 
                 <Separator />
 
@@ -89,9 +105,224 @@
                 </StackPanel>
             </ToolBar>
         </ToolBarTray>
+        <!--#endregion // Toolbar-->
 
-        <TextBox>
-            Editor area...
-        </TextBox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Padding" Value="5,5,5,5" />
+                </Style>
+            </Grid.Resources>
+
+            <!--#region  Commande Details Grid-->
+            <Border>
+                <DataGrid
+                    x:Name="commandesDataGrid"
+                    AutoGenerateColumns="False"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource commandeViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding NoClient}"
+                            Header="No Client" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding DateHeureCommande}"
+                            Header="Date commande" />
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding MontantTotal}"
+                            Header="Montant (€)" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+            <!--#endregion // Commande Details Grid-->
+
+            <!--#region Items Detail Grid-->
+            <Border Grid.Column="1">
+                <DataGrid
+                    x:Name="itemsDataGrid"
+                    AutoGenerateColumns="True"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource commandeItemsViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected" />
+            </Border>
+            <!--#endregion // Items Detail Grid-->
+
+            <!--#region Détail acteur Commande-->
+            <Border Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.Resources>
+                        <Style TargetType="GroupBox">
+                            <Setter Property="Margin" Value="5,5,5,5" />
+                        </Style>
+                    </Grid.Resources>
+
+                    <!--#region Client Detail-->
+                    <GroupBox
+                        Grid.RowSpan="2"
+                        Background="#FFF0F0F0"
+                        Header="Client">
+                        <RichTextBox VerticalAlignment="Center" IsReadOnly="True">
+                            <FlowDocument Background="#FFF0F0F0">
+                                <Table CellSpacing="5">
+                                    <Table.Columns>
+                                        <TableColumn />
+                                        <TableColumn />
+                                    </Table.Columns>
+
+                                    <TableRowGroup>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Paragraph>
+                                                    <Bold>Nom:</Bold>
+                                                    <Run Text="{Binding SelectedItem.Client.Nom, ElementName=commandesDataGrid}" />
+                                                    <LineBreak />
+                                                    <Bold>Prenom:</Bold>
+                                                    <Run Text="{Binding SelectedItem.Client.Prenom, ElementName=commandesDataGrid}" />
+                                                    <LineBreak />
+                                                    <Bold>Telephone:</Bold>
+                                                    <Run Text="{Binding SelectedItem.Client.NoTelephone, ElementName=commandesDataGrid}" />
+                                                </Paragraph>
+                                            </TableCell>
+
+                                            <TableCell>
+                                                <Paragraph>
+                                                    <Bold>Rue:</Bold>
+                                                    <Run Text="{Binding SelectedItem.Client.Adresse.Rue, ElementName=commandesDataGrid}" />
+                                                    <LineBreak />
+                                                    <Bold>Ville:</Bold>
+                                                    <Run Text="{Binding SelectedItem.Client.Adresse.Ville, ElementName=commandesDataGrid}" />
+                                                    <LineBreak />
+                                                    <Bold>CP:</Bold>
+                                                    <Run Text="{Binding SelectedItem.Client.Adresse.Cp, ElementName=commandesDataGrid}" />
+                                                </Paragraph>
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableRowGroup>
+                                </Table>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </GroupBox>
+
+                    <!--#endregion // Client Detail-->
+
+                    <!--#region Commis Detail-->
+                    <GroupBox
+                        Grid.Column="1"
+                        Background="#FFF0F0F0"
+                        Header="Commis">
+                        <RichTextBox Background="#FFF0F0F0" IsReadOnly="True">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Bold>Nom:</Bold>
+                                    <Run Text="{Binding SelectedItem.Commis.Nom, ElementName=commandesDataGrid}" />
+                                    <Bold>Prenom:</Bold>
+                                    <Run Text="{Binding SelectedItem.Commis.Preom, ElementName=commandesDataGrid}" />
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </GroupBox>
+                    <!--#endregion // Commis Detail-->
+
+                    <!--#region Livreur Detail-->
+                    <GroupBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Background="#FFF0F0F0"
+                        Header="Livreur">
+                        <RichTextBox Background="#FFF0F0F0" IsReadOnly="True">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Bold>Nom:</Bold>
+                                    <Run Text="{Binding SelectedItem.Livreur.Nom, ElementName=commandesDataGrid}" />
+                                    <Bold>Prenom:</Bold>
+                                    <Run Text="{Binding SelectedItem.Livreur.Preom, ElementName=commandesDataGrid}" />
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </GroupBox>
+                    <!--#endregion // Livreur Detail-->
+                </Grid>
+            </Border>
+            <!--#endregion Détail // acteur Commande-->
+
+            <!--#region Editeur commande-->
+            <Border
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Margin="0">
+                <ScrollViewer>
+                    <StackPanel Margin="0,0,5,0">
+                        <GroupBox Background="#FFF0F0F0" Header="Détail commande">
+                            <StackPanel>
+                                <Label>No Commande:</Label>
+                                <TextBox
+                                    Name="noCommande"
+                                    IsReadOnly="True"
+                                    Text="{Binding SelectedItem.NoCommande, ElementName=commandesDataGrid}" />
+
+                                <Label>Date:</Label>
+                                <TextBox
+                                    Name="dateCommande"
+                                    IsReadOnly="True"
+                                    Text="{Binding SelectedItem.DateHeureCommande, ElementName=commandesDataGrid}" />
+
+                                <Label>Montant (€):</Label>
+                                <TextBox
+                                    Name="montant"
+                                    IsReadOnly="True"
+                                    Text="{Binding SelectedItem.MontantTotal, ElementName=commandesDataGrid}" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Background="#FFF0F0F0" Header="Etat commande">
+                            <StackPanel>
+                                <Label>Etat:</Label>
+                                <ComboBox Name="etatCommande" Text="{Binding SelectedItem.EtatCommande, ElementName=commandesDataGrid}">
+                                    <ComboBoxItem IsSelected="true" />
+                                    <ComboBoxItem>En preparation</ComboBoxItem>
+                                    <ComboBoxItem>En livraison</ComboBoxItem>
+                                    <ComboBoxItem>Fermée</ComboBoxItem>
+                                </ComboBox>
+
+                                <CheckBox Margin="0,10,0,0" IsChecked="{Binding SelectedItem.EstEncaissee, ElementName=commandesDataGrid}">Encaisée</CheckBox>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button Margin="5">Val. édition</Button>
+                        </WrapPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+            <!--#endregion // Editeur commande-->
+
+        </Grid>
     </DockPanel>
 </UserControl>

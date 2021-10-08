@@ -7,8 +7,8 @@ using Projet_Pizzeria.DAO;
 
 namespace Projet_Pizzeria.Migrations
 {
-    [DbContext(typeof(ClientContext))]
-    partial class ClientContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PizzeriaContext))]
+    partial class PizzeriaContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -107,8 +107,14 @@ namespace Projet_Pizzeria.Migrations
                     b.Property<DateTime>("DateHeureCommande")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EstEncaissee")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("EtatCommande")
                         .HasColumnType("TEXT");
+
+                    b.Property<long?>("LivreurNoLivreur")
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("MontantTotal")
                         .HasColumnType("REAL");
@@ -117,7 +123,49 @@ namespace Projet_Pizzeria.Migrations
 
                     b.HasIndex("ClientNoClient");
 
+                    b.HasIndex("LivreurNoLivreur");
+
                     b.ToTable("Commandes");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Commis", b =>
+                {
+                    b.Property<long>("NoCmmis")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbDeCommandeGeree")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("NoCmmis");
+
+                    b.ToTable("Commis");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Livreur", b =>
+                {
+                    b.Property<long>("NoLivreur")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbLivraisonEffectue")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("NoLivreur");
+
+                    b.ToTable("Livreurs");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Boisson", b =>
@@ -162,6 +210,10 @@ namespace Projet_Pizzeria.Migrations
                     b.HasOne("Projet_Pizzeria.Model.Client", "Client")
                         .WithMany("Commandes")
                         .HasForeignKey("ClientNoClient");
+
+                    b.HasOne("Projet_Pizzeria.Model.Livreur", "Livreur")
+                        .WithMany()
+                        .HasForeignKey("LivreurNoLivreur");
                 });
 #pragma warning restore 612, 618
         }

@@ -76,6 +76,9 @@ namespace Projet_Pizzeria.Migrations.Commande
                     b.Property<DateTime>("DatePremiereCommande")
                         .HasColumnType("TEXT");
 
+                    b.Property<double>("MontantAchatCumule")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("NoTelephone")
                         .HasColumnType("TEXT");
 
@@ -104,8 +107,14 @@ namespace Projet_Pizzeria.Migrations.Commande
                     b.Property<DateTime>("DateHeureCommande")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EstEncaissee")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("EtatCommande")
                         .HasColumnType("TEXT");
+
+                    b.Property<long?>("LivreurNoLivreur")
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("MontantTotal")
                         .HasColumnType("REAL");
@@ -114,7 +123,29 @@ namespace Projet_Pizzeria.Migrations.Commande
 
                     b.HasIndex("ClientNoClient");
 
+                    b.HasIndex("LivreurNoLivreur");
+
                     b.ToTable("Commandes");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Livreur", b =>
+                {
+                    b.Property<long>("NoLivreur")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbLivraisonEffectue")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("NoLivreur");
+
+                    b.ToTable("Livreur");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Boisson", b =>
@@ -157,8 +188,12 @@ namespace Projet_Pizzeria.Migrations.Commande
             modelBuilder.Entity("Projet_Pizzeria.Model.Commande", b =>
                 {
                     b.HasOne("Projet_Pizzeria.Model.Client", "Client")
-                        .WithMany()
+                        .WithMany("Commandes")
                         .HasForeignKey("ClientNoClient");
+
+                    b.HasOne("Projet_Pizzeria.Model.Livreur", "Livreur")
+                        .WithMany()
+                        .HasForeignKey("LivreurNoLivreur");
                 });
 #pragma warning restore 612, 618
         }

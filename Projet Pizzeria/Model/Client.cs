@@ -19,22 +19,10 @@ namespace Projet_Pizzeria.Model
         public virtual ICollection<Commande> Commandes { get; private set; } = new ObservableCollection<Commande>();
 
         public virtual Adresse Adresse { get; set; }
-
-        /// <summary>
-        /// @return
-        /// </summary>
-        public Commande CreerNouvelleCommande()
+    
+        public void AjouterNouvelleCommande(Commande commande)
         {
-            return null;
-        }
-
-        /// <summary>
-        /// @return
-        /// </summary>
-        public int GetNbCommandes()
-        {
-            // TODO implement here
-            return 0;
+            Commandes.Add(commande);
         }
     }
 }

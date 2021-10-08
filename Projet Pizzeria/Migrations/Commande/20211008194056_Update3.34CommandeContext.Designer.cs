@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projet_Pizzeria.DAO;
 
-namespace Projet_Pizzeria.Migrations
+namespace Projet_Pizzeria.Migrations.Commande
 {
-    [DbContext(typeof(ClientContext))]
-    [Migration("20211006090825_Update2ClientContext")]
-    partial class Update2ClientContext
+    [DbContext(typeof(CommandeContext))]
+    [Migration("20211008194056_Update3.34CommandeContext")]
+    partial class Update334CommandeContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace Projet_Pizzeria.Migrations
 
                     b.HasKey("AdresseId");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Adresse");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Client", b =>
@@ -94,7 +94,7 @@ namespace Projet_Pizzeria.Migrations
 
                     b.HasIndex("AdresseId");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Commande", b =>
@@ -109,8 +109,14 @@ namespace Projet_Pizzeria.Migrations
                     b.Property<DateTime>("DateHeureCommande")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EstEncaissee")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("EtatCommande")
                         .HasColumnType("TEXT");
+
+                    b.Property<long?>("LivreurNoLivreur")
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("MontantTotal")
                         .HasColumnType("REAL");
@@ -119,7 +125,29 @@ namespace Projet_Pizzeria.Migrations
 
                     b.HasIndex("ClientNoClient");
 
+                    b.HasIndex("LivreurNoLivreur");
+
                     b.ToTable("Commandes");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Livreur", b =>
+                {
+                    b.Property<long>("NoLivreur")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbLivraisonEffectue")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("NoLivreur");
+
+                    b.ToTable("Livreur");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Boisson", b =>
@@ -164,6 +192,10 @@ namespace Projet_Pizzeria.Migrations
                     b.HasOne("Projet_Pizzeria.Model.Client", "Client")
                         .WithMany("Commandes")
                         .HasForeignKey("ClientNoClient");
+
+                    b.HasOne("Projet_Pizzeria.Model.Livreur", "Livreur")
+                        .WithMany()
+                        .HasForeignKey("LivreurNoLivreur");
                 });
 #pragma warning restore 612, 618
         }

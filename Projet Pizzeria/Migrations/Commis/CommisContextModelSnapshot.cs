@@ -24,6 +24,12 @@ namespace Projet_Pizzeria.Migrations.Commis
                     b.Property<int>("NbDeCommandeGeree")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("NoCmmis");
 
                     b.ToTable("Commis");
