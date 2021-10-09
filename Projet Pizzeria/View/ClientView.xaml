@@ -181,6 +181,7 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding Source={StaticResource clientViewSource}}"
                     RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single"
                     Sorting="ClientDataGrid_DisableSorting">
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -264,7 +265,8 @@
                     EnableRowVirtualization="True"
                     IsReadOnly="True"
                     ItemsSource="{Binding Commandes, Source={StaticResource clientViewSource}}"
-                    RowDetailsVisibilityMode="VisibleWhenSelected">
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="SizeToHeader"
@@ -290,7 +292,8 @@
                     EnableRowVirtualization="True"
                     IsReadOnly="True"
                     ItemsSource="{Binding SelectedItem.Items, ElementName=commandesDataGrid}"
-                    RowDetailsVisibilityMode="VisibleWhenSelected" />
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single" />
             </Border>
         </Grid>
     </DockPanel>

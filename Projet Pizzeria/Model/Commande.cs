@@ -20,7 +20,7 @@ namespace Projet_Pizzeria.Model
         public virtual Livreur Livreur { get; set; }
        
       
-        public virtual ICollection<AItem> Items { get; set; } = new ObservableCollection<AItem>();
+        public virtual ICollection<AItem> Items { get; private set; } = new ObservableCollection<AItem>();
 
         /// <summary>
         /// @param p
