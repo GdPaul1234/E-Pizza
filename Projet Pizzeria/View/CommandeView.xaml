@@ -106,7 +106,10 @@
                 <Separator />
 
                 <StackPanel>
-                    <TextBox Name="NoCommandeTextBox" Width="100" />
+                    <TextBox
+                        Name="NoCommandeTextBox"
+                        Width="100"
+                        TextChanged="NoCommandeTextBox_TextChanged" />
                     <TextBlock HorizontalAlignment="Center">No. Commande</TextBlock>
                 </StackPanel>
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.Model;
 using Projet_Pizzeria.Model.Controller;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -56,7 +57,7 @@ namespace Projet_Pizzeria.View
             NoCommandeTextBox.Text = "";
 
             // manual refresh
-            System.Diagnostics.Trace.TraceInformation("Commande added to DB");
+            System.Diagnostics.Trace.TraceInformation("Reset filter");
             commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
         }
 
@@ -75,6 +76,18 @@ namespace Projet_Pizzeria.View
 
             // manual refresh
             System.Diagnostics.Trace.TraceInformation("Filter applied");
+            commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
+        }
+
+        private void NoCommandeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string commandeIdSearch = (sender as TextBox).Text;
+            if (string.IsNullOrWhiteSpace(commandeIdSearch)) _controller.ResetFilter();
+            else if (long.TryParse(commandeIdSearch, out long numeroCommande))
+            {
+                _controller.SearchByNumber(numeroCommande);
+            }
+            // manual refresh
             commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
         }
     }
