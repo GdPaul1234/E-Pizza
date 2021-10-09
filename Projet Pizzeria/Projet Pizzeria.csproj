@@ -180,6 +180,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\ICommandeOrderer.cs" />
     <Compile Include="DAO\AItemDataStore.cs" />
     <Compile Include="Migrations\20211009131652_Update4.cs" />
     <Compile Include="Migrations\20211009131652_Update4.designer.cs">

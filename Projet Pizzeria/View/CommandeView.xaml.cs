@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.Model;
 using Projet_Pizzeria.Model.Controller;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -41,12 +42,53 @@ namespace Projet_Pizzeria.View
             NewCommandeDialog inputDialog = new NewCommandeDialog { Owner = Application.Current.MainWindow };
             if (inputDialog.ShowDialog() == true)
             {
-                // TODO ...
-
                 // manual refresh
-                // System.Diagnostics.Trace.TraceInformation($"Commande {cId} added to DB");
+                System.Diagnostics.Trace.TraceInformation("Commande added to DB");
                 commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
             }
+        }
+
+        private void Reset_Button_Click(object sender, RoutedEventArgs e)
+        {
+            _controller.ResetFilter();
+
+            // reset UI
+            ThreeStateToggleButtonLogic.ResetToggleButtons();
+            NoCommandeTextBox.Text = "";
+
+            // manual refresh
+            System.Diagnostics.Trace.TraceInformation("Reset filter");
+            commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
+        }
+
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get filter sender
+            var filterToBeApplied = sender as FrameworkElement;
+
+            switch(filterToBeApplied.Name)
+            {
+                case "Preparation": _controller.FilterByEtat("En préparation").Collect(); break;
+                case "Livraison": _controller.FilterByEtat("En livraison").Collect(); break;
+                case "Fermee": _controller.FilterByEtat("Fermée").Collect(); break;
+                default: break;
+            }
+
+            // manual refresh
+            System.Diagnostics.Trace.TraceInformation("Filter applied");
+            commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
+        }
+
+        private void NoCommandeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string commandeIdSearch = (sender as TextBox).Text;
+            if (string.IsNullOrWhiteSpace(commandeIdSearch)) _controller.ResetFilter();
+            else if (long.TryParse(commandeIdSearch, out long numeroCommande))
+            {
+                _controller.SearchByNumber(numeroCommande);
+            }
+            // manual refresh
+            commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
         }
     }
 
@@ -100,6 +142,12 @@ namespace Projet_Pizzeria.View
         protected void OnPropertyChanged([CallerMemberName] string new_Value = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(new_Value));
+        }
+
+        public void ResetToggleButtons()
+        {
+            _preparation = true;
+            _livraison = _fermee = false;
         }
     }
 

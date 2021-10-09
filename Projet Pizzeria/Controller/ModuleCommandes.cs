@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Projet_Pizzeria.Controller;
 using Projet_Pizzeria.DAO;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Projet_Pizzeria.Model.Controller
 {
-    public class ModuleCommandes
+    public class ModuleCommandes : ICommandeOrderer
     {
         private static PizzeriaContext pizzeriaDb = null;
         public IQueryable<Commande> CommandeResultSet { get; set; }
@@ -71,30 +71,38 @@ namespace Projet_Pizzeria.Model.Controller
 
         #endregion // CRU_ Commandes
 
-
-        /// <summary>
-        /// @param noCommande
-        /// @return
-        /// </summary>
-        public double CalculerPrixCommande(long noCommande)
-        {
-            // TODO implement here
-            return 0.0D;
-        }
-
-        /// <summary>
-        /// @param long nbCommande
-        /// @return
-        /// </summary>
-        public Commande GetCommandeByNumber(long nbCommande)
-        {
-            // TODO implement here
-            return null;
-        }
-
         public void ImportCommande()
         {
             // TODO implement here
         }
+
+        #region ICommandeOrderer implementation
+        public ICommandeOrderer FilterByEtat(string etat)
+        {
+            ResetFilter();
+            CommandeResultSet = CommandeResultSet.Where(c => c.EtatCommande == etat)
+                .OrderByDescending(c => c.DateHeureCommande);
+            return this;
+        }
+
+        public ICommandeOrderer SearchByNumber(long numeroCommande)
+        {
+            CommandeResultSet = CommandeResultSet.Where(c => c.NumeroCommande == numeroCommande)
+                .OrderByDescending(c => c.DateHeureCommande);
+            return this;
+        }
+
+        public IQueryable<Commande> Collect()
+        {
+            RefreshResultSet();
+            return CommandeResultSet;
+        }
+
+        public void ResetFilter()
+        {
+            CommandeResultSet = pizzeriaDb.Commandes;
+            RefreshResultSet();
+        }
+        #endregion // ICommandeOrderer implementation
     }
 }

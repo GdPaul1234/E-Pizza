@@ -59,6 +59,7 @@
             <ToolBar>
                 <ToggleButton
                     Name="Preparation"
+                    Click="FilterButton_Click"
                     IsChecked="{Binding ThreeStateToggleButtonLogic.EnPreparation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="stateCommande"
                     ToolBar.OverflowMode="Never"
@@ -74,6 +75,7 @@
 
                 <ToggleButton
                     Name="Livraison"
+                    Click="FilterButton_Click"
                     IsChecked="{Binding ThreeStateToggleButtonLogic.EnLivraison, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="stateCommande"
                     ToolTip="Commandes en livraison">
@@ -88,6 +90,7 @@
 
                 <ToggleButton
                     Name="Fermee"
+                    Click="FilterButton_Click"
                     IsChecked="{Binding ThreeStateToggleButtonLogic.EnFermee, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="stateCommande"
                     ToolTip="Commandes fermées">
@@ -103,9 +106,22 @@
                 <Separator />
 
                 <StackPanel>
-                    <TextBox Width="100" />
+                    <TextBox
+                        Name="NoCommandeTextBox"
+                        Width="100"
+                        TextChanged="NoCommandeTextBox_TextChanged" />
                     <TextBlock HorizontalAlignment="Center">No. Commande</TextBlock>
                 </StackPanel>
+
+                <Button Click="Reset_Button_Click" ToolTip="Réinitialiser les filtres">
+                    <StackPanel>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="Recycle" />
+                        <TextBlock>Reset</TextBlock>
+                    </StackPanel>
+                </Button>
             </ToolBar>
         </ToolBarTray>
         <!--#endregion // Toolbar-->
@@ -136,7 +152,8 @@
                     EnableRowVirtualization="True"
                     IsReadOnly="True"
                     ItemsSource="{Binding Source={StaticResource commandeViewSource}}"
-                    RowDetailsVisibilityMode="VisibleWhenSelected">
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="SizeToHeader"
@@ -163,7 +180,8 @@
                     EnableRowVirtualization="True"
                     IsReadOnly="True"
                     ItemsSource="{Binding Source={StaticResource commandeItemsViewSource}}"
-                    RowDetailsVisibilityMode="VisibleWhenSelected" />
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single" />
             </Border>
             <!--#endregion // Items Detail Grid-->
 
@@ -309,7 +327,7 @@
                                 <Label>Etat:</Label>
                                 <ComboBox Name="etatCommande" Text="{Binding SelectedItem.EtatCommande, ElementName=commandesDataGrid}">
                                     <ComboBoxItem IsSelected="true" />
-                                    <ComboBoxItem>En preparation</ComboBoxItem>
+                                    <ComboBoxItem>En préparation</ComboBoxItem>
                                     <ComboBoxItem>En livraison</ComboBoxItem>
                                     <ComboBoxItem>Fermée</ComboBoxItem>
                                 </ComboBox>
