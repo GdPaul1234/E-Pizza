@@ -205,6 +205,10 @@
     <Compile Include="Migrations\Pizzeria\20211009131735_Update4.designer.cs">
       <DependentUpon>20211009131735_Update4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Pizzeria\20211009134753_IC.cs" />
+    <Compile Include="Migrations\Pizzeria\20211009134753_IC.designer.cs">
+      <DependentUpon>20211009134753_IC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Pizzeria\PizzeriaContextModelSnapshot.cs" />
     <Compile Include="Model\Comparer\ClientComparer.cs" />
     <Compile Include="Controller\ModuleClientEffectifImportExport.cs" />

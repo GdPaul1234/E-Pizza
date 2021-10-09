@@ -1,5 +1,4 @@
-﻿using Projet_Pizzeria.DAO;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Projet_Pizzeria
 {
