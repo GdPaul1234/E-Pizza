@@ -153,7 +153,7 @@ namespace Projet_Pizzeria.View
             }
 
             // manual refresh
-            System.Diagnostics.Trace.TraceInformation($"Filter applied");
+            System.Diagnostics.Trace.TraceInformation("Filter applied");
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
         }
 
