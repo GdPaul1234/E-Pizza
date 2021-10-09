@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Projet_Pizzeria.Migrations.Client
+namespace Projet_Pizzeria.Migrations.Commande
 {
-    public partial class Update334PClientContext : Migration
+    public partial class Update4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Adresses",
+                name: "Adresse",
                 columns: table => new
                 {
                     AdresseId = table.Column<int>(nullable: false)
@@ -19,7 +19,22 @@ namespace Projet_Pizzeria.Migrations.Client
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adresses", x => x.AdresseId);
+                    table.PrimaryKey("PK_Adresse", x => x.AdresseId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Commis",
+                columns: table => new
+                {
+                    NoCommis = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nom = table.Column<string>(nullable: true),
+                    Prenom = table.Column<string>(nullable: true),
+                    NbDeCommandeGeree = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Commis", x => x.NoCommis);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,7 +53,7 @@ namespace Projet_Pizzeria.Migrations.Client
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clients",
+                name: "Client",
                 columns: table => new
                 {
                     NoClient = table.Column<long>(nullable: false)
@@ -52,11 +67,11 @@ namespace Projet_Pizzeria.Migrations.Client
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clients", x => x.NoClient);
+                    table.PrimaryKey("PK_Client", x => x.NoClient);
                     table.ForeignKey(
-                        name: "FK_Clients_Adresses_AdresseId",
+                        name: "FK_Client_Adresse_AdresseId",
                         column: x => x.AdresseId,
-                        principalTable: "Adresses",
+                        principalTable: "Adresse",
                         principalColumn: "AdresseId",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -71,6 +86,7 @@ namespace Projet_Pizzeria.Migrations.Client
                     EtatCommande = table.Column<string>(nullable: true),
                     MontantTotal = table.Column<double>(nullable: false),
                     EstEncaissee = table.Column<int>(nullable: false),
+                    CommisNoCommis = table.Column<long>(nullable: true),
                     ClientNoClient = table.Column<long>(nullable: true),
                     LivreurNoLivreur = table.Column<long>(nullable: true)
                 },
@@ -78,10 +94,16 @@ namespace Projet_Pizzeria.Migrations.Client
                 {
                     table.PrimaryKey("PK_Commandes", x => x.NumeroCommande);
                     table.ForeignKey(
-                        name: "FK_Commandes_Clients_ClientNoClient",
+                        name: "FK_Commandes_Client_ClientNoClient",
                         column: x => x.ClientNoClient,
-                        principalTable: "Clients",
+                        principalTable: "Client",
                         principalColumn: "NoClient",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Commandes_Commis_CommisNoCommis",
+                        column: x => x.CommisNoCommis,
+                        principalTable: "Commis",
+                        principalColumn: "NoCommis",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Commandes_Livreur_LivreurNoLivreur",
@@ -122,14 +144,19 @@ namespace Projet_Pizzeria.Migrations.Client
                 column: "CommandeNumeroCommande");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_AdresseId",
-                table: "Clients",
+                name: "IX_Client_AdresseId",
+                table: "Client",
                 column: "AdresseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Commandes_ClientNoClient",
                 table: "Commandes",
                 column: "ClientNoClient");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Commandes_CommisNoCommis",
+                table: "Commandes",
+                column: "CommisNoCommis");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Commandes_LivreurNoLivreur",
@@ -146,13 +173,16 @@ namespace Projet_Pizzeria.Migrations.Client
                 name: "Commandes");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Client");
+
+            migrationBuilder.DropTable(
+                name: "Commis");
 
             migrationBuilder.DropTable(
                 name: "Livreur");
 
             migrationBuilder.DropTable(
-                name: "Adresses");
+                name: "Adresse");
         }
     }
 }

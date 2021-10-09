@@ -22,6 +22,7 @@ namespace Projet_Pizzeria.Controller
         private void RefreshResultSet()
         {
             // Refresh
+            pizzeriaDb.Commandes.Load();
             ClientResultSet.Load();
         }
 

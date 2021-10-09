@@ -38,8 +38,7 @@ namespace Projet_Pizzeria.View
 
         private void AddCommande_Click(object sender, RoutedEventArgs e)
         {
-            var inputDialog = new NewCommandeDialog { Owner = Application.Current.MainWindow };
-
+            NewCommandeDialog inputDialog = new NewCommandeDialog { Owner = Application.Current.MainWindow };
             if (inputDialog.ShowDialog() == true)
             {
                 // TODO ...

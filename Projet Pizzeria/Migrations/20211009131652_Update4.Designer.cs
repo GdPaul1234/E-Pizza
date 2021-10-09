@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projet_Pizzeria.DAO;
 
-namespace Projet_Pizzeria.Migrations.Commande
+namespace Projet_Pizzeria.Migrations
 {
-    [DbContext(typeof(CommandeContext))]
-    [Migration("20211008194056_Update3.34CommandeContext")]
-    partial class Update334CommandeContext
+    [DbContext(typeof(ClientContext))]
+    [Migration("20211009131652_Update4")]
+    partial class Update4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace Projet_Pizzeria.Migrations.Commande
 
                     b.HasKey("AdresseId");
 
-                    b.ToTable("Adresse");
+                    b.ToTable("Adresses");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Client", b =>
@@ -94,7 +94,7 @@ namespace Projet_Pizzeria.Migrations.Commande
 
                     b.HasIndex("AdresseId");
 
-                    b.ToTable("Client");
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Commande", b =>
@@ -104,6 +104,9 @@ namespace Projet_Pizzeria.Migrations.Commande
                         .HasColumnType("INTEGER");
 
                     b.Property<long?>("ClientNoClient")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("CommisNoCommis")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateHeureCommande")
@@ -125,9 +128,31 @@ namespace Projet_Pizzeria.Migrations.Commande
 
                     b.HasIndex("ClientNoClient");
 
+                    b.HasIndex("CommisNoCommis");
+
                     b.HasIndex("LivreurNoLivreur");
 
                     b.ToTable("Commandes");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Commis", b =>
+                {
+                    b.Property<long>("NoCommis")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbDeCommandeGeree")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("NoCommis");
+
+                    b.ToTable("Commis");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Livreur", b =>
@@ -192,6 +217,10 @@ namespace Projet_Pizzeria.Migrations.Commande
                     b.HasOne("Projet_Pizzeria.Model.Client", "Client")
                         .WithMany("Commandes")
                         .HasForeignKey("ClientNoClient");
+
+                    b.HasOne("Projet_Pizzeria.Model.Commis", "Commis")
+                        .WithMany()
+                        .HasForeignKey("CommisNoCommis");
 
                     b.HasOne("Projet_Pizzeria.Model.Livreur", "Livreur")
                         .WithMany()

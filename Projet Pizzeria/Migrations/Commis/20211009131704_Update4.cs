@@ -1,31 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Projet_Pizzeria.Migrations.Livreur
+namespace Projet_Pizzeria.Migrations.Commis
 {
-    public partial class Update334LivreurContext : Migration
+    public partial class Update4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Livreurs",
+                name: "Commis",
                 columns: table => new
                 {
-                    NoLivreur = table.Column<long>(nullable: false)
+                    NoCommis = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nom = table.Column<string>(nullable: true),
                     Prenom = table.Column<string>(nullable: true),
-                    NbLivraisonEffectue = table.Column<int>(nullable: false)
+                    NbDeCommandeGeree = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Livreurs", x => x.NoLivreur);
+                    table.PrimaryKey("PK_Commis", x => x.NoCommis);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Livreurs");
+                name: "Commis");
         }
     }
 }

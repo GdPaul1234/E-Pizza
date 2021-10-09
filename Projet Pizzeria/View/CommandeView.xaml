@@ -140,7 +140,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="SizeToHeader"
-                            Binding="{Binding NoClient}"
+                            Binding="{Binding Client.NoClient}"
                             Header="No Client" />
                         <DataGridTextColumn
                             Width="*"
@@ -246,7 +246,7 @@
                                     <Bold>Nom:</Bold>
                                     <Run Text="{Binding SelectedItem.Commis.Nom, ElementName=commandesDataGrid}" />
                                     <Bold>Prenom:</Bold>
-                                    <Run Text="{Binding SelectedItem.Commis.Preom, ElementName=commandesDataGrid}" />
+                                    <Run Text="{Binding SelectedItem.Commis.Prenom, ElementName=commandesDataGrid}" />
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
@@ -265,7 +265,7 @@
                                     <Bold>Nom:</Bold>
                                     <Run Text="{Binding SelectedItem.Livreur.Nom, ElementName=commandesDataGrid}" />
                                     <Bold>Prenom:</Bold>
-                                    <Run Text="{Binding SelectedItem.Livreur.Preom, ElementName=commandesDataGrid}" />
+                                    <Run Text="{Binding SelectedItem.Livreur.Prenom, ElementName=commandesDataGrid}" />
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
@@ -288,7 +288,7 @@
                                 <TextBox
                                     Name="noCommande"
                                     IsReadOnly="True"
-                                    Text="{Binding SelectedItem.NoCommande, ElementName=commandesDataGrid}" />
+                                    Text="{Binding SelectedItem.NumeroCommande, ElementName=commandesDataGrid}" />
 
                                 <Label>Date:</Label>
                                 <TextBox

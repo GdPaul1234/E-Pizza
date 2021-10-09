@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Projet_Pizzeria.Migrations
 {
-    public partial class Update334PizzaContext : Migration
+    public partial class Update4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace Projet_Pizzeria.Migrations
                 name: "Commis",
                 columns: table => new
                 {
-                    NoCmmis = table.Column<long>(nullable: false)
+                    NoCommis = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nom = table.Column<string>(nullable: true),
                     Prenom = table.Column<string>(nullable: true),
@@ -34,11 +34,11 @@ namespace Projet_Pizzeria.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Commis", x => x.NoCmmis);
+                    table.PrimaryKey("PK_Commis", x => x.NoCommis);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Livreurs",
+                name: "Livreur",
                 columns: table => new
                 {
                     NoLivreur = table.Column<long>(nullable: false)
@@ -49,7 +49,7 @@ namespace Projet_Pizzeria.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Livreurs", x => x.NoLivreur);
+                    table.PrimaryKey("PK_Livreur", x => x.NoLivreur);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,6 +86,7 @@ namespace Projet_Pizzeria.Migrations
                     EtatCommande = table.Column<string>(nullable: true),
                     MontantTotal = table.Column<double>(nullable: false),
                     EstEncaissee = table.Column<int>(nullable: false),
+                    CommisNoCommis = table.Column<long>(nullable: true),
                     ClientNoClient = table.Column<long>(nullable: true),
                     LivreurNoLivreur = table.Column<long>(nullable: true)
                 },
@@ -99,9 +100,15 @@ namespace Projet_Pizzeria.Migrations
                         principalColumn: "NoClient",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Commandes_Livreurs_LivreurNoLivreur",
+                        name: "FK_Commandes_Commis_CommisNoCommis",
+                        column: x => x.CommisNoCommis,
+                        principalTable: "Commis",
+                        principalColumn: "NoCommis",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Commandes_Livreur_LivreurNoLivreur",
                         column: x => x.LivreurNoLivreur,
-                        principalTable: "Livreurs",
+                        principalTable: "Livreur",
                         principalColumn: "NoLivreur",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -147,6 +154,11 @@ namespace Projet_Pizzeria.Migrations
                 column: "ClientNoClient");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Commandes_CommisNoCommis",
+                table: "Commandes",
+                column: "CommisNoCommis");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Commandes_LivreurNoLivreur",
                 table: "Commandes",
                 column: "LivreurNoLivreur");
@@ -158,16 +170,16 @@ namespace Projet_Pizzeria.Migrations
                 name: "AItem");
 
             migrationBuilder.DropTable(
-                name: "Commis");
-
-            migrationBuilder.DropTable(
                 name: "Commandes");
 
             migrationBuilder.DropTable(
                 name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Livreurs");
+                name: "Commis");
+
+            migrationBuilder.DropTable(
+                name: "Livreur");
 
             migrationBuilder.DropTable(
                 name: "Adresses");

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projet_Pizzeria.DAO;
 
-namespace Projet_Pizzeria.Migrations.Commis
+namespace Projet_Pizzeria.Migrations.Livreur
 {
-    [DbContext(typeof(CommisContext))]
-    [Migration("20211008194017_Update3.34PCommisContext")]
-    partial class Update334PCommisContext
+    [DbContext(typeof(LivreurContext))]
+    [Migration("20211009131725_Update4")]
+    partial class Update4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,13 +17,13 @@ namespace Projet_Pizzeria.Migrations.Commis
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.19");
 
-            modelBuilder.Entity("Projet_Pizzeria.Model.Commis", b =>
+            modelBuilder.Entity("Projet_Pizzeria.Model.Livreur", b =>
                 {
-                    b.Property<long>("NoCmmis")
+                    b.Property<long>("NoLivreur")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NbDeCommandeGeree")
+                    b.Property<int>("NbLivraisonEffectue")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nom")
@@ -32,9 +32,9 @@ namespace Projet_Pizzeria.Migrations.Commis
                     b.Property<string>("Prenom")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("NoCmmis");
+                    b.HasKey("NoLivreur");
 
-                    b.ToTable("Commis");
+                    b.ToTable("Livreurs");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projet_Pizzeria.DAO;
 
-namespace Projet_Pizzeria.Migrations.Client
+namespace Projet_Pizzeria.Migrations
 {
     [DbContext(typeof(ClientContext))]
-    [Migration("20211008194002_Update3.34PClientContext")]
-    partial class Update334PClientContext
+    partial class ClientContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,6 +104,9 @@ namespace Projet_Pizzeria.Migrations.Client
                     b.Property<long?>("ClientNoClient")
                         .HasColumnType("INTEGER");
 
+                    b.Property<long?>("CommisNoCommis")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("DateHeureCommande")
                         .HasColumnType("TEXT");
 
@@ -125,9 +126,31 @@ namespace Projet_Pizzeria.Migrations.Client
 
                     b.HasIndex("ClientNoClient");
 
+                    b.HasIndex("CommisNoCommis");
+
                     b.HasIndex("LivreurNoLivreur");
 
                     b.ToTable("Commandes");
+                });
+
+            modelBuilder.Entity("Projet_Pizzeria.Model.Commis", b =>
+                {
+                    b.Property<long>("NoCommis")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NbDeCommandeGeree")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prenom")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("NoCommis");
+
+                    b.ToTable("Commis");
                 });
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Livreur", b =>
@@ -192,6 +215,10 @@ namespace Projet_Pizzeria.Migrations.Client
                     b.HasOne("Projet_Pizzeria.Model.Client", "Client")
                         .WithMany("Commandes")
                         .HasForeignKey("ClientNoClient");
+
+                    b.HasOne("Projet_Pizzeria.Model.Commis", "Commis")
+                        .WithMany()
+                        .HasForeignKey("CommisNoCommis");
 
                     b.HasOne("Projet_Pizzeria.Model.Livreur", "Livreur")
                         .WithMany()

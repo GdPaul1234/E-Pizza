@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
@@ -36,47 +36,86 @@
         </Grid.Resources>
 
         <Border Grid.RowSpan="3">
-            <ListBox />
+            <ListBox
+                Name="ItemListBox"
+                Width="300"
+                ItemsSource="{Binding NewCommande.Items}" />
         </Border>
 
         <Border Grid.Column="1">
-            <GroupBox Background="#FFF0F0F0" Header="Ajouter boisson">
-                <StackPanel
-                    Margin="5"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="175"
-                        Margin="0,0,10,0"
-                        ItemsSource="{Binding Source={StaticResource boissonViewSource}}" />
-                    <Button Name="AddBoisson" Click="AddBoisson_Click">Ajouter</Button>
+            <GroupBox Background="#FFF0F0F0" Header="Ajouter client">
+                <StackPanel>
+                    <WrapPanel Margin="0,0,0,5" HorizontalAlignment="Center">
+                        <Button Name="CreateClient" Click="CreateClient_Click">Nouveau client</Button>
+                        <Button
+                            Name="FindClientByPhone"
+                            Margin="10,0,0,0"
+                            Click="FindClientByPhone_Click">
+                            Client existant
+                        </Button>
+                    </WrapPanel>
+
+                    <StackPanel>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Client.Prenom, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="2,0,0,0" Text="{Binding Client.Nom, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="2,0,0,0" FontStyle="Italic">Tel:</TextBlock>
+                            <TextBlock Margin="2,0,0,0" Text="{Binding Client.NoTelephone, UpdateSourceTrigger=PropertyChanged}" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock FontStyle="Italic">Résidant au</TextBlock>
+                            <TextBlock Margin="2,0,0,0" Text="{Binding Client.Adresse.Rue, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="2,0,0,0" Text="{Binding Client.Adresse.Cp, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="2,0,0,0" Text="{Binding Client.Adresse.Ville, UpdateSourceTrigger=PropertyChanged}" />
+                        </WrapPanel>
+                    </StackPanel>
                 </StackPanel>
             </GroupBox>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="1">
-            <GroupBox Background="#FFF0F0F0" Header="Ajouter pizza">
-                <StackPanel
-                    Margin="5"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        Width="175"
-                        Margin="0,0,10,0"
-                        ItemsSource="{Binding Source={StaticResource pizzaViewSource}}" />
-                    <Button Name="AddPizza" Click="AddPizza_Click">Ajouter</Button>
+            <GroupBox Background="#FFF0F0F0" Header="Ajouter item">
+                <StackPanel>
+                    <Label>Boisson</Label>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <ComboBox
+                            Name="boissonComboBox"
+                            Width="150"
+                            ItemsSource="{Binding Source={StaticResource boissonViewSource}}" />
+                        <Button Name="AddBoisson" Click="AddBoisson_Click">Ajouter</Button>
+                    </StackPanel>
+
+                    <Label>Pizza</Label>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <ComboBox
+                            Name="pizzaComboBox"
+                            Width="150"
+                            ItemsSource="{Binding Source={StaticResource pizzaViewSource}}" />
+                        <Button Name="AddPizza" Click="AddPizza_Click">Ajouter</Button>
+                    </StackPanel>
                 </StackPanel>
+
             </GroupBox>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="1">
             <GroupBox Background="#FFF0F0F0" Header="Gestion commande">
-                <Button
-                    Name="DelItem"
-                    Margin="5"
-                    Click="DelItem_Click">
-                    Suppr. item sélectionné
-                </Button>
+                <StackPanel>
+                    <Button
+                        Name="DelItem"
+                        Margin="0,5"
+                        Click="DelItem_Click"
+                        Tag="{Binding SelectedItem, ElementName=ItemListBox}">
+                        Suppr. item sélectionné
+                    </Button>
+
+                    <WrapPanel>
+                        <TextBlock FontStyle="Italic">Prix Commande (€):</TextBlock>
+                        <TextBlock Margin="2,0,0,0" Text="{Binding NewCommande.MontantTotal}" />
+                    </WrapPanel>
+
+                </StackPanel>
+
             </GroupBox>
         </Border>
 

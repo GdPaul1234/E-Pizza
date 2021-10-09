@@ -28,27 +28,33 @@ namespace Projet_Pizzeria.Model.Controller
 
         #region CRU_ Commandes
 
-        public void CreateNouvelleCommande(Client c, List<AItem> items)
+        public Client FindClientByPhone(string noTelephone)
+        {
+            return pizzeriaDb.Clients.FirstOrDefault(c => c.NoTelephone == noTelephone);
+        }
+
+        public void CreateNouvelleCommande(Client c, Commande commande)
         {
             // assigner un commis et un livreur random
             Random rand = new Random();
             int toSkipCommis = rand.Next(0, pizzeriaDb.Commis.Count());
             int toSkipLivreur = rand.Next(0, pizzeriaDb.Livreurs.Count());
 
+            Console.Write(toSkipCommis);
+
             Commis selectedCommis = pizzeriaDb.Commis.Skip(toSkipCommis).Take(1).First();
             Livreur selectedLivreur = pizzeriaDb.Livreurs.Skip(toSkipLivreur).Take(1).First();
 
-            // création commande
-            Commande commande = new Commande
-            {
-                Client = c,
-                Commis = selectedCommis,
-                Livreur = selectedLivreur,
-                DateHeureCommande = new DateTime(),
-                EstEncaissee = 0,
-                Items = items,
-                MontantTotal = items.Sum(i => i.Prix)
-            };
+            // finir remplissage commande
+            commande.Client = c;
+            commande.Commis = selectedCommis;
+            commande.Livreur = selectedLivreur;
+            commande.DateHeureCommande = DateTime.Now;
+            commande.EtatCommande = "En préparation";
+            commande.EstEncaissee = 0;
+
+            // gratifier le comis pour le service rendu à la pizzeria
+            selectedCommis.NbDeCommandeGeree++;
 
             // c doit être managé par Ef Core
             c.AjouterNouvelleCommande(commande);

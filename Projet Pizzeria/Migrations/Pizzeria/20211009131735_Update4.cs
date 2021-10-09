@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Projet_Pizzeria.Migrations.Commande
+namespace Projet_Pizzeria.Migrations.Pizzeria
 {
-    public partial class Update334CommandeContext : Migration
+    public partial class Update4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Adresse",
+                name: "Adresses",
                 columns: table => new
                 {
                     AdresseId = table.Column<int>(nullable: false)
@@ -19,11 +19,26 @@ namespace Projet_Pizzeria.Migrations.Commande
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adresse", x => x.AdresseId);
+                    table.PrimaryKey("PK_Adresses", x => x.AdresseId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Livreur",
+                name: "Commis",
+                columns: table => new
+                {
+                    NoCommis = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nom = table.Column<string>(nullable: true),
+                    Prenom = table.Column<string>(nullable: true),
+                    NbDeCommandeGeree = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Commis", x => x.NoCommis);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Livreurs",
                 columns: table => new
                 {
                     NoLivreur = table.Column<long>(nullable: false)
@@ -34,11 +49,11 @@ namespace Projet_Pizzeria.Migrations.Commande
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Livreur", x => x.NoLivreur);
+                    table.PrimaryKey("PK_Livreurs", x => x.NoLivreur);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Client",
+                name: "Clients",
                 columns: table => new
                 {
                     NoClient = table.Column<long>(nullable: false)
@@ -52,11 +67,11 @@ namespace Projet_Pizzeria.Migrations.Commande
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Client", x => x.NoClient);
+                    table.PrimaryKey("PK_Clients", x => x.NoClient);
                     table.ForeignKey(
-                        name: "FK_Client_Adresse_AdresseId",
+                        name: "FK_Clients_Adresses_AdresseId",
                         column: x => x.AdresseId,
-                        principalTable: "Adresse",
+                        principalTable: "Adresses",
                         principalColumn: "AdresseId",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -71,6 +86,7 @@ namespace Projet_Pizzeria.Migrations.Commande
                     EtatCommande = table.Column<string>(nullable: true),
                     MontantTotal = table.Column<double>(nullable: false),
                     EstEncaissee = table.Column<int>(nullable: false),
+                    CommisNoCommis = table.Column<long>(nullable: true),
                     ClientNoClient = table.Column<long>(nullable: true),
                     LivreurNoLivreur = table.Column<long>(nullable: true)
                 },
@@ -78,15 +94,21 @@ namespace Projet_Pizzeria.Migrations.Commande
                 {
                     table.PrimaryKey("PK_Commandes", x => x.NumeroCommande);
                     table.ForeignKey(
-                        name: "FK_Commandes_Client_ClientNoClient",
+                        name: "FK_Commandes_Clients_ClientNoClient",
                         column: x => x.ClientNoClient,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "NoClient",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Commandes_Livreur_LivreurNoLivreur",
+                        name: "FK_Commandes_Commis_CommisNoCommis",
+                        column: x => x.CommisNoCommis,
+                        principalTable: "Commis",
+                        principalColumn: "NoCommis",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Commandes_Livreurs_LivreurNoLivreur",
                         column: x => x.LivreurNoLivreur,
-                        principalTable: "Livreur",
+                        principalTable: "Livreurs",
                         principalColumn: "NoLivreur",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -122,14 +144,19 @@ namespace Projet_Pizzeria.Migrations.Commande
                 column: "CommandeNumeroCommande");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_AdresseId",
-                table: "Client",
+                name: "IX_Clients_AdresseId",
+                table: "Clients",
                 column: "AdresseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Commandes_ClientNoClient",
                 table: "Commandes",
                 column: "ClientNoClient");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Commandes_CommisNoCommis",
+                table: "Commandes",
+                column: "CommisNoCommis");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Commandes_LivreurNoLivreur",
@@ -146,13 +173,16 @@ namespace Projet_Pizzeria.Migrations.Commande
                 name: "Commandes");
 
             migrationBuilder.DropTable(
-                name: "Client");
+                name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Livreur");
+                name: "Commis");
 
             migrationBuilder.DropTable(
-                name: "Adresse");
+                name: "Livreurs");
+
+            migrationBuilder.DropTable(
+                name: "Adresses");
         }
     }
 }

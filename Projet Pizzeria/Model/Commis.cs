@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Projet_Pizzeria.Model
 {
-    public class Commis : DbContext
+    public class Commis
     {
         [Key]
-        public long NoCmmis { get; set; }
+        public long NoCommis { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
 
-        public int NbDeCommandeGeree { get; private set; }
+        public int NbDeCommandeGeree { get; set; }
 
         public void ConnaitreEtatCommande()
         {

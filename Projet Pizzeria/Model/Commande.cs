@@ -13,12 +13,13 @@ namespace Projet_Pizzeria.Model
         public DateTime DateHeureCommande { get; set; }
         public string EtatCommande { get; set; }
         public double MontantTotal { get; set; }
-        public int EstEncaissee { get; set; }
+        public int EstEncaissee { get; set; } = 0;
 
-        public virtual Client Client { get; set; }
         public virtual Commis Commis { get; set; }
+        public virtual Client Client { get; set; }
         public virtual Livreur Livreur { get; set; }
-
+       
+      
         public virtual ICollection<AItem> Items { get; set; } = new ObservableCollection<AItem>();
 
         /// <summary>
@@ -26,7 +27,8 @@ namespace Projet_Pizzeria.Model
         /// </summary>
         public void AddItem(AItem p)
         {
-            // TODO implement here
+            Items.Add(p);
+            MontantTotal += p.Prix;
         }
 
         /// <summary>
@@ -34,16 +36,7 @@ namespace Projet_Pizzeria.Model
         /// </summary>
         public void DelItem(AItem p)
         {
-            // TODO implement here
-        }
-
-        /// <summary>
-        /// @return
-        /// </summary>
-        public List<AItem> GetCommandeItems()
-        {
-            // TODO implement here
-            return null;
+            if (Items.Remove(p)) MontantTotal -= p.Prix;
         }
     }
 }

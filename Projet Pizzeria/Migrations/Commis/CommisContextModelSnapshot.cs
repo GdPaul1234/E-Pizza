@@ -17,7 +17,7 @@ namespace Projet_Pizzeria.Migrations.Commis
 
             modelBuilder.Entity("Projet_Pizzeria.Model.Commis", b =>
                 {
-                    b.Property<long>("NoCmmis")
+                    b.Property<long>("NoCommis")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -30,7 +30,7 @@ namespace Projet_Pizzeria.Migrations.Commis
                     b.Property<string>("Prenom")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("NoCmmis");
+                    b.HasKey("NoCommis");
 
                     b.ToTable("Commis");
                 });

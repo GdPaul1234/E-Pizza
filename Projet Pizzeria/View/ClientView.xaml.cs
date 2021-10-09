@@ -32,7 +32,7 @@ namespace Projet_Pizzeria.View
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _controller.ClientResultSet.Load();
+            _controller.ResetFilter();
 
             // bind to the source
             clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);

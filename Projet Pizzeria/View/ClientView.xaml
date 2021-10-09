@@ -13,8 +13,6 @@
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="clientViewSource" />
-        <CollectionViewSource x:Key="clientCommandesViewSource" Source="{Binding Commandes, Source={StaticResource clientViewSource}}" />
-        <CollectionViewSource x:Key="commandeItemsViewSource" Source="{Binding Items, Source={StaticResource clientCommandesViewSource}}" />
     </UserControl.Resources>
 
     <DockPanel>
@@ -265,12 +263,12 @@
                     AutoGenerateColumns="False"
                     EnableRowVirtualization="True"
                     IsReadOnly="True"
-                    ItemsSource="{Binding Source={StaticResource clientCommandesViewSource}}"
+                    ItemsSource="{Binding Commandes, Source={StaticResource clientViewSource}}"
                     RowDetailsVisibilityMode="VisibleWhenSelected">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="SizeToHeader"
-                            Binding="{Binding NoClient}"
+                            Binding="{Binding Client.NoClient}"
                             Header="No Client" />
                         <DataGridTextColumn
                             Width="*"
@@ -291,7 +289,7 @@
                     AutoGenerateColumns="True"
                     EnableRowVirtualization="True"
                     IsReadOnly="True"
-                    ItemsSource="{Binding Source={StaticResource commandeItemsViewSource}}"
+                    ItemsSource="{Binding SelectedItem.Items, ElementName=commandesDataGrid}"
                     RowDetailsVisibilityMode="VisibleWhenSelected" />
             </Border>
         </Grid>

@@ -181,35 +181,38 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAO\AItemDataStore.cs" />
-    <Compile Include="Migrations\20211008193930_Update3.34PizzaContext.cs" />
-    <Compile Include="Migrations\20211008193930_Update3.34PizzaContext.designer.cs">
-      <DependentUpon>20211008193930_Update3.34PizzaContext.cs</DependentUpon>
+    <Compile Include="Migrations\20211009131652_Update4.cs" />
+    <Compile Include="Migrations\20211009131652_Update4.designer.cs">
+      <DependentUpon>20211009131652_Update4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Client\20211008194002_Update3.34PClientContext.cs" />
-    <Compile Include="Migrations\Client\20211008194002_Update3.34PClientContext.designer.cs">
-      <DependentUpon>20211008194002_Update3.34PClientContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Client\ClientContextModelSnapshot.cs" />
-    <Compile Include="Migrations\Commande\20211008194056_Update3.34CommandeContext.cs" />
-    <Compile Include="Migrations\Commande\20211008194056_Update3.34CommandeContext.designer.cs">
-      <DependentUpon>20211008194056_Update3.34CommandeContext.cs</DependentUpon>
+    <Compile Include="Migrations\ClientContextModelSnapshot.cs" />
+    <Compile Include="Migrations\Commande\20211009131713_Update4.cs" />
+    <Compile Include="Migrations\Commande\20211009131713_Update4.designer.cs">
+      <DependentUpon>20211009131713_Update4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Commande\CommandeContextModelSnapshot.cs" />
-    <Compile Include="Migrations\Commis\20211008194017_Update3.34PCommisContext.cs" />
-    <Compile Include="Migrations\Commis\20211008194017_Update3.34PCommisContext.designer.cs">
-      <DependentUpon>20211008194017_Update3.34PCommisContext.cs</DependentUpon>
+    <Compile Include="Migrations\Commis\20211009131704_Update4.cs" />
+    <Compile Include="Migrations\Commis\20211009131704_Update4.designer.cs">
+      <DependentUpon>20211009131704_Update4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Commis\CommisContextModelSnapshot.cs" />
-    <Compile Include="Migrations\Livreur\20211008194039_Update3.34LivreurContext.cs" />
-    <Compile Include="Migrations\Livreur\20211008194039_Update3.34LivreurContext.designer.cs">
-      <DependentUpon>20211008194039_Update3.34LivreurContext.cs</DependentUpon>
+    <Compile Include="Migrations\Livreur\20211009131725_Update4.cs" />
+    <Compile Include="Migrations\Livreur\20211009131725_Update4.designer.cs">
+      <DependentUpon>20211009131725_Update4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Livreur\LivreurContextModelSnapshot.cs" />
-    <Compile Include="Migrations\PizzeriaContextModelSnapshot.cs" />
+    <Compile Include="Migrations\Pizzeria\20211009131735_Update4.cs" />
+    <Compile Include="Migrations\Pizzeria\20211009131735_Update4.designer.cs">
+      <DependentUpon>20211009131735_Update4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Pizzeria\PizzeriaContextModelSnapshot.cs" />
     <Compile Include="Model\Comparer\ClientComparer.cs" />
     <Compile Include="Controller\ModuleClientEffectifImportExport.cs" />
     <Compile Include="Model\Comparer\CommisComparer.cs" />
     <Compile Include="Model\Comparer\LivreurComparer.cs" />
+    <Compile Include="View\AskNoTelephoneClientDialog.xaml.cs">
+      <DependentUpon>AskNoTelephoneClientDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
     </Compile>
@@ -247,6 +250,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AskNoTelephoneClientDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,9 +314,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\Pizzeria\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
