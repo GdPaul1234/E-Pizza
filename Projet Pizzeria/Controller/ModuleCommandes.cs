@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Projet_Pizzeria.Controller;
-using Projet_Pizzeria.DAO;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Projet_Pizzeria.DAO;
+using Projet_Pizzeria.Model;
 
-namespace Projet_Pizzeria.Model.Controller
+namespace Projet_Pizzeria.Controller
 {
     public class ModuleCommandes : ICommandeOrderer
     {
@@ -63,13 +63,20 @@ namespace Projet_Pizzeria.Model.Controller
             pizzeriaDb.SaveChanges();
         }
 
-        public Commande EditCommande(Client c)
+        public Commande EditCommande(long noCommande, Commande c)
         {
-            // TODO implement here
+            Commande editingCommande = pizzeriaDb.Commandes.FirstOrDefault(commande => commande.NumeroCommande == noCommande);
+            if (editingCommande != null)
+            {
+                editingCommande.EtatCommande = c.EtatCommande;
+                editingCommande.EstEncaissee = c.EstEncaissee;
+                pizzeriaDb.SaveChanges();
+                RefreshResultSet();
+            }
             return null;
         }
 
-        #endregion // CRU_ Commandes
+        #endregion CRU_ Commandes
 
         public void ImportCommande()
         {
@@ -77,6 +84,7 @@ namespace Projet_Pizzeria.Model.Controller
         }
 
         #region ICommandeOrderer implementation
+
         public ICommandeOrderer FilterByEtat(string etat)
         {
             ResetFilter();
@@ -103,6 +111,7 @@ namespace Projet_Pizzeria.Model.Controller
             CommandeResultSet = pizzeriaDb.Commandes;
             RefreshResultSet();
         }
-        #endregion // ICommandeOrderer implementation
+
+        #endregion ICommandeOrderer implementation
     }
 }

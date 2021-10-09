@@ -56,7 +56,6 @@ namespace Projet_Pizzeria.Controller
                 editingClient.Prenom = c.Prenom;
                 editingClient.NoTelephone = c.NoTelephone;
                 editingClient.Adresse = c.Adresse;
-                editingClient.NoClient = c.NoClient;
                 pizzeriaDb.SaveChanges();
                 RefreshResultSet();
             }

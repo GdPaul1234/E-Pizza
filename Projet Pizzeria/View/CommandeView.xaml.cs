@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.Model;
-using Projet_Pizzeria.Model.Controller;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Projet_Pizzeria.Controller;
 
 namespace Projet_Pizzeria.View
 {
@@ -66,7 +67,7 @@ namespace Projet_Pizzeria.View
             // Get filter sender
             var filterToBeApplied = sender as FrameworkElement;
 
-            switch(filterToBeApplied.Name)
+            switch (filterToBeApplied.Name)
             {
                 case "Preparation": _controller.FilterByEtat("En préparation").Collect(); break;
                 case "Livraison": _controller.FilterByEtat("En livraison").Collect(); break;
@@ -90,6 +91,19 @@ namespace Projet_Pizzeria.View
             // manual refresh
             commandeViewSource.Source = new ObservableCollection<Commande>(_controller.CommandeResultSet);
         }
+
+        private void EditCommande_Click(object sender, RoutedEventArgs e)
+        {
+            Commande selectedCommande = (sender as FrameworkElement).Tag as Commande;
+            if (selectedCommande != null)
+            {
+                _controller.EditCommande(selectedCommande.NumeroCommande, new Commande
+                {
+                    EtatCommande = etatCommande.Text,
+                    EstEncaissee = (bool)estEncaissee.IsChecked ? 1 : 0
+                });
+            }
+        }
     }
 
     #region ThreeStatToggleeButtonLogic
@@ -103,7 +117,7 @@ namespace Projet_Pizzeria.View
             get => _preparation;
             set
             {
-                if (value)_livraison = _fermee = false;
+                if (value) _livraison = _fermee = false;
                 _preparation = value;
                 OnPropertyChanged("EnPreparation");
                 OnPropertyChanged("EnLivraison");
@@ -151,5 +165,24 @@ namespace Projet_Pizzeria.View
         }
     }
 
-    #endregion //  ThreeStateToggleButtonLogic
+    #endregion ThreeStatToggleeButtonLogic
+
+    #region IntToBooleanValueConverter
+
+    public class IntToBooleanValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value != null && (int)value != 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value is bool boolean ?
+                boolean ? 1 : 0
+                : 0 as object;
+        }
+    }
+
+    #endregion IntToBooleanValueConverter
 }

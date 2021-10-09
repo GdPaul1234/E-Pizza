@@ -1,12 +1,9 @@
 ﻿using Projet_Pizzeria.Controller;
 using Projet_Pizzeria.DAO;
 using Projet_Pizzeria.Model;
-using Projet_Pizzeria.Model.Controller;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace Projet_Pizzeria.View
@@ -45,6 +42,7 @@ namespace Projet_Pizzeria.View
         }
 
         #region Add client to commande
+
         private void CreateClient_Click(object sender, RoutedEventArgs e)
         {
             var inputDialog = new NewClientDialog { Owner = Application.Current.MainWindow };
@@ -69,9 +67,11 @@ namespace Projet_Pizzeria.View
                 RaisePropertyChanged("Client");
             }
         }
-        #endregion // Add client to commande
+
+        #endregion Add client to commande
 
         #region Add item to commande
+
         private void AddBoisson_Click(object sender, RoutedEventArgs e)
         {
             var selectedBoisson = boissonComboBox.SelectedItem as Boisson;
@@ -86,25 +86,24 @@ namespace Projet_Pizzeria.View
             _nbPizza++;
             RaisePropertyChanged("NewCommande");
         }
-        
+
         private void DelItem_Click(object sender, RoutedEventArgs e)
         {
             AItem selectedItem = (sender as FrameworkElement).Tag as AItem;
-            if(selectedItem != null)
+            if (selectedItem != null)
             {
                 NewCommande.DelItem(selectedItem);
                 _nbPizza++;
                 RaisePropertyChanged("NewCommande");
             }
-           
         }
-        #endregion // Add item to commande
 
+        #endregion Add item to commande
 
         private void BtnDialogOk_Click(object sender, RoutedEventArgs e)
         {
             // create "returned" commande from fields value
-            if(Client != null && _nbPizza > 0)
+            if (Client != null && _nbPizza > 0)
             {
                 _controller.CreateNouvelleCommande(Client, NewCommande);
                 DialogResult = true;
@@ -112,13 +111,14 @@ namespace Projet_Pizzeria.View
         }
 
         #region INotifyPropertyChanged implementation
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion // INotifyPropertyChanged implementation
 
+        #endregion INotifyPropertyChanged implementation
     }
 }

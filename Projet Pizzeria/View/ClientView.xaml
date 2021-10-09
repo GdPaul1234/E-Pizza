@@ -248,7 +248,7 @@
                                 </Style>
                             </WrapPanel.Resources>
 
-                            <Button Click="EditClient_Button_Click">Val. édition</Button>
+                            <Button Click="EditClient_Button_Click" Tag="{Binding SelectedItem, ElementName=clientDataGrid}">Val. édition</Button>
                             <Button Click="DelClient_Button_Click" Tag="{Binding SelectedItem, ElementName=clientDataGrid}">
                                 Suppr. client
                             </Button>

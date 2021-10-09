@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <CollectionViewSource x:Key="commandeViewSource" />
         <CollectionViewSource x:Key="commandeItemsViewSource" Source="{Binding Items, Source={StaticResource commandeViewSource}}" />
+        <local:IntToBooleanValueConverter x:Key="IntToBooleanValueConverter" />
     </UserControl.Resources>
 
     <DockPanel>
@@ -332,18 +333,28 @@
                                     <ComboBoxItem>Fermée</ComboBoxItem>
                                 </ComboBox>
 
-                                <CheckBox Margin="0,10,0,0" IsChecked="{Binding SelectedItem.EstEncaissee, ElementName=commandesDataGrid}">Encaisée</CheckBox>
+                                <CheckBox
+                                    Name="estEncaissee"
+                                    Margin="0,10,0,0"
+                                    IsChecked="{Binding SelectedItem.EstEncaissee, ElementName=commandesDataGrid, Converter={StaticResource IntToBooleanValueConverter}}">
+                                    Encaisée
+                                </CheckBox>
                             </StackPanel>
                         </GroupBox>
 
                         <WrapPanel HorizontalAlignment="Center">
-                            <Button Margin="5">Val. édition</Button>
+                            <Button
+                                Name="EditCommande"
+                                Margin="5"
+                                Click="EditCommande_Click"
+                                Tag="{Binding SelectedItem, ElementName=commandesDataGrid}">
+                                Val. édition
+                            </Button>
                         </WrapPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
             <!--#endregion // Editeur commande-->
-
         </Grid>
     </DockPanel>
 </UserControl>
