@@ -70,7 +70,7 @@
                             Width="16"
                             Height="16"
                             Icon="ShoppingBasket" />
-                        <TextBlock>Prép.</TextBlock>
+                        <TextBlock>Préparat.</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
@@ -85,7 +85,7 @@
                             Width="16"
                             Height="16"
                             Icon="Truck" />
-                        <TextBlock>Livr.</TextBlock>
+                        <TextBlock>Livraison</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
@@ -100,7 +100,37 @@
                             Width="16"
                             Height="16"
                             Icon="CalendarTimesOutline" />
-                        <TextBlock>Ferm.</TextBlock>
+                        <TextBlock>Fermée</TextBlock>
+                    </StackPanel>
+                </ToggleButton>
+
+                <Separator />
+
+                <ToggleButton
+                    Name="Encaissee"
+                    Click="FilterButton_Click"
+                    Tag="checkCommande"
+                    ToolTip="Commandes encaissées">
+                    <StackPanel>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="Money" />
+                        <TextBlock>Encaissé</TextBlock>
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    Name="APerte"
+                    Click="FilterButton_Click"
+                    Tag="checkCommande"
+                    ToolTip="Commandes perdues">
+                    <StackPanel>
+                        <fa:ImageAwesome
+                            Width="16"
+                            Height="16"
+                            Icon="QuestionCircleOutline" />
+                        <TextBlock>Perdue</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
