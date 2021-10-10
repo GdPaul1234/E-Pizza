@@ -5,6 +5,5 @@ namespace Projet_Pizzeria.Model
         public double Volume { get; set; }
 
         public override string ToString() => $"{base.ToString()} ({Volume} L)";
-
     }
 }

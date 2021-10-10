@@ -1,5 +1,4 @@
 ﻿using Projet_Pizzeria.Model;
-using System;
 using System.Collections.Generic;
 
 namespace Projet_Pizzeria.DAO
@@ -26,6 +25,5 @@ namespace Projet_Pizzeria.DAO
                 new Pizza { Nom = "VEGETARIANA", Prix = 18, Type = "vegetariennes", Taille = "3 - Grande" },
                 new Pizza { Nom = "QUEEN TARTUFO", Prix = 22, Type = "toutes garnies", Taille = "3 - Grande" },
             };
-
     }
 }

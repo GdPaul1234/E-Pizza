@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Projet_Pizzeria.DAO;
+﻿using Projet_Pizzeria.DAO;
 using Projet_Pizzeria.Model;
 using Projet_Pizzeria.Model.Comparer;
-using System;
-using System.Collections;
 using System.Linq;
 
 namespace Projet_Pizzeria.Controller
@@ -13,6 +10,7 @@ namespace Projet_Pizzeria.Controller
         #region IImportExportEffectif Implementation
 
         #region Import Export Client
+
         public void ExportClient()
         {
             using (var _pizzeriaContext = new PizzeriaContext())
@@ -61,9 +59,11 @@ namespace Projet_Pizzeria.Controller
                 }
             }
         }
-        #endregion // Import Export Client
+
+        #endregion Import Export Client
 
         #region Import Export Commis
+
         public void ExportCommis()
         {
             using (var _pizzeriaContext = new PizzeriaContext())
@@ -103,7 +103,7 @@ namespace Projet_Pizzeria.Controller
             }
         }
 
-        #endregion // Import Export Commis
+        #endregion Import Export Commis
 
         #region Import Export Livreur
 
@@ -146,8 +146,8 @@ namespace Projet_Pizzeria.Controller
             }
         }
 
-        #endregion // Import Export Livreur
+        #endregion Import Export Livreur
 
-        #endregion // IImportExportEffectif Implementation
+        #endregion IImportExportEffectif Implementation
     }
 }

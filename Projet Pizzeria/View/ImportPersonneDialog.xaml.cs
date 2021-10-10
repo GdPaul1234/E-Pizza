@@ -1,7 +1,6 @@
 ﻿using Projet_Pizzeria.Controller;
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
 
 namespace Projet_Pizzeria.View

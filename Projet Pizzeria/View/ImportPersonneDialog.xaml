@@ -34,7 +34,6 @@
             </StackPanel>
         </GroupBox>
 
-
         <WrapPanel
             Grid.Row="1"
             Margin="0,5"

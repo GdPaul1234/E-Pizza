@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Projet_Pizzeria.Controller;
 using Projet_Pizzeria.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Projet_Pizzeria.Controller;
-using System.IO;
-using System.Linq;
 
 namespace Projet_Pizzeria.View
 {

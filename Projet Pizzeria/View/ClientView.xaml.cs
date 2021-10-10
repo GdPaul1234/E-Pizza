@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Projet_Pizzeria.Controller;
+﻿using Projet_Pizzeria.Controller;
 using Projet_Pizzeria.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -81,7 +80,7 @@ namespace Projet_Pizzeria.View
         private void DelClient_Button_Click(object sender, RoutedEventArgs e)
         {
             var selectedClient = GetSelectedClientFromButtonTag(sender);
-            if(selectedClient != null)
+            if (selectedClient != null)
             {
                 _controller.DelClient(selectedClient.NoClient);
                 // manual refresh
@@ -196,7 +195,7 @@ namespace Projet_Pizzeria.View
                 System.Diagnostics.Process.Start("explorer.exe", backupDir);
                 System.Diagnostics.Trace.TraceInformation("Export successfully!");
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 System.Diagnostics.Trace.TraceError(err.StackTrace);
             }
@@ -206,17 +205,15 @@ namespace Projet_Pizzeria.View
         {
             var inputDialog = new ImportPersonneDialog() { Owner = Application.Current.MainWindow };
 
-            if(inputDialog.ShowDialog() == true) {
+            if (inputDialog.ShowDialog() == true)
+            {
                 // manual refresh
                 System.Diagnostics.Trace.TraceInformation("Import successfully!");
                 clientViewSource.Source = new ObservableCollection<Client>(_controller.ClientResultSet);
             }
-
-
         }
 
-        #endregion // Import Export Handler
-
+        #endregion Import Export Handler
     }
 
     #region ToggleButton Logic

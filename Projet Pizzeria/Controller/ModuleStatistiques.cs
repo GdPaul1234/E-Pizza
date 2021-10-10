@@ -23,16 +23,14 @@ namespace Projet_Pizzeria.Controller
         }
 
         public double GetAvgPrixCommande() => pizzeriaDb.Commandes.Average(c => c.MontantTotal);
-        
 
         public static List<KeyValuePair<Client, double>> GetAvgPrixClient()
         {
             return pizzeriaDb.Commandes.GroupBy(c => c.Client,
                 c => c.MontantTotal,
-                (client, montants) => 
+                (client, montants) =>
                     new KeyValuePair<Client, double>(client, montants.Average()))
                 .ToList();
         }
-       
     }
 }
