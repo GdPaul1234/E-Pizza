@@ -24,5 +24,10 @@ namespace Projet_Pizzeria.Model
         {
             Commandes.Add(commande);
         }
+
+        public override string ToString()
+        {
+            return $"{Nom} {Prenom} ({NoTelephone})";
+        }
     }
 }

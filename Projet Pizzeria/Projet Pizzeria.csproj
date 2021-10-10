@@ -187,7 +187,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controller\ICommandeOrderer.cs" />
-    <Compile Include="Controller\MessageReceiver.cs" />
+    <Compile Include="Controller\Communication\MessageReceiver.cs" />
     <Compile Include="DAO\AItemDataStore.cs" />
     <Compile Include="Migrations\20211009131652_Update4.cs" />
     <Compile Include="Migrations\20211009131652_Update4.designer.cs">
@@ -214,13 +214,12 @@
       <DependentUpon>20211009131735_Update4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Pizzeria\PizzeriaContextModelSnapshot.cs" />
-    <Compile Include="Model\RoutingKeys.cs" />
+    <Compile Include="Model\Communication\RoutingKeys.cs" />
+    <Compile Include="Controller\Communication\SystemMessageSender.cs" />
     <Compile Include="Model\Comparer\ClientComparer.cs" />
     <Compile Include="Controller\ModuleClientEffectifImportExport.cs" />
     <Compile Include="Model\Comparer\CommisComparer.cs" />
     <Compile Include="Model\Comparer\LivreurComparer.cs" />
-    <Compile Include="Model\Exchanges.cs" />
-    <Compile Include="Model\Queues.cs" />
     <Compile Include="View\AskNoTelephoneClientDialog.xaml.cs">
       <DependentUpon>AskNoTelephoneClientDialog.xaml</DependentUpon>
     </Compile>

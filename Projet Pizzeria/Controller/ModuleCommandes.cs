@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Projet_Pizzeria.Controller.Communication;
 using Projet_Pizzeria.DAO;
 using Projet_Pizzeria.Model;
 using System;
@@ -61,18 +62,31 @@ namespace Projet_Pizzeria.Controller
             c.MontantAchatCumule += commande.MontantTotal;
             pizzeriaDb.Attach(c);
             pizzeriaDb.SaveChanges();
+
+            // envoyer les messages
+            SystemMessageSender.SendPrepartionMessages(commande);
         }
 
         public Commande EditCommande(long noCommande, Commande c)
         {
-            Commande editingCommande = pizzeriaDb.Commandes.FirstOrDefault(commande => commande.NumeroCommande == noCommande);
+            Commande editingCommande = pizzeriaDb.Commandes
+                .FirstOrDefault(commande => commande.NumeroCommande == noCommande);
+
             if (editingCommande != null)
             {
                 editingCommande.EtatCommande = c.EtatCommande;
                 editingCommande.EstEncaissee = c.EstEncaissee;
 
-                // gratifier le livreur pour sa livraison
-                if (c.EtatCommande == "Fermée") editingCommande.Livreur.NbLivraisonEffectue++;
+                if (c.EtatCommande == "En livraison")
+                {
+                    SystemMessageSender.SendLivraisonMessages(editingCommande);
+                }
+                else if (c.EtatCommande == "Fermée")
+                {
+                    // gratifier le livreur pour sa livraison
+                    editingCommande.Livreur.NbLivraisonEffectue++;
+                    SystemMessageSender.SendFermetureMessages(editingCommande);
+                }
 
                 pizzeriaDb.SaveChanges();
                 RefreshResultSet();
