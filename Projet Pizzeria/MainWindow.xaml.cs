@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
-using Projet_Pizzeria.Controller;
-using Projet_Pizzeria.Model;
+﻿using System.Windows;
 
 namespace Projet_Pizzeria
 {
@@ -13,8 +9,8 @@ namespace Projet_Pizzeria
     {
         public MainWindow()
         {
-           InitializeComponent();
-             //Reste à tester la réception
+            InitializeComponent();
+            //Reste à tester la réception
             //Envoyer un message de commis vers cuisine
             //ModuleCommunication.SendMessage(Exchanges.COMMIS_CUISINE_EXCHANGE, RoutingKeys.ROUTING_KEY, "La commande est prise");
             //Recevoir le message de commis

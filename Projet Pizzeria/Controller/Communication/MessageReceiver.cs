@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RabbitMQ.Client;
+using System;
 using System.Text;
-using RabbitMQ.Client;
 
 namespace Projet_Pizzeria.Controller.Communication
 {

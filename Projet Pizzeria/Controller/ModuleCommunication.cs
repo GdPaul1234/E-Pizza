@@ -1,7 +1,5 @@
-using Projet_Pizzeria.Controller.Communication;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
 using System.Text;
 
 namespace Projet_Pizzeria.Controller

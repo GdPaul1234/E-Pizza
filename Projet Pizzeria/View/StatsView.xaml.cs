@@ -1,9 +1,9 @@
-﻿using Projet_Pizzeria.Controller;
+﻿using Microsoft.EntityFrameworkCore;
+using Projet_Pizzeria.Controller;
 using Projet_Pizzeria.DAO;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System;
 
 namespace Projet_Pizzeria.View
 {
