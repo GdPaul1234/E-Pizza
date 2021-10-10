@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <CollectionViewSource x:Key="commisViewSource" />
         <CollectionViewSource x:Key="livreurViewSource" />
+        <CollectionViewSource x:Key="commandeViewSource" />
     </UserControl.Resources>
 
     <DockPanel>
@@ -57,13 +58,19 @@
                     </StackPanel>
 
                     <Label Grid.Column="1" Margin="0,0,0,2">Début</Label>
-                    <DatePicker Grid.Column="2" Margin="2,0,0,2" />
+                    <DatePicker
+                        Grid.Column="2"
+                        Margin="2,0,0,2"
+                        SelectedDate="{Binding DateStart}"
+                        SelectedDateChanged="DatePicker_SelectedDateChanged" />
 
                     <Label Grid.Row="1" Grid.Column="1">Fin</Label>
                     <DatePicker
                         Grid.Row="1"
                         Grid.Column="2"
-                        Margin="2,0,0,0" />
+                        Margin="2,0,0,0"
+                        SelectedDate="{Binding DateStop}"
+                        SelectedDateChanged="DatePicker_SelectedDateChanged" />
                 </Grid>
             </ToolBar>
 
@@ -150,6 +157,70 @@
                     SelectionMode="Single" />
             </Border>
             <!--#endregion // Stats Livreur-->
+
+            <!--#region Commandes-->
+            <Border Grid.RowSpan="2" Grid.Column="1">
+                <DataGrid
+                    x:Name="commandesDataGrid"
+                    AutoGenerateColumns="False"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource commandeViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding Client.NoClient}"
+                            Header="No Client" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding DateHeureCommande}"
+                            Header="Date commande" />
+                        <DataGridTextColumn
+                            Width="SizeToHeader"
+                            Binding="{Binding MontantTotal}"
+                            Header="Montant (€)" />
+                    </DataGrid.Columns>
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel>
+                                    <WrapPanel Margin="0,2">
+                                        <TextBlock FontWeight="Bold">Client:</TextBlock>
+                                        <TextBlock Text="{Binding Client.Nom}" />
+                                        <TextBlock Margin="2,0,0,0" Text="{Binding Client.Prenom}" />
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,2">
+                                        <TextBlock FontWeight="Bold">Commis:</TextBlock>
+                                        <TextBlock Margin="2,0,0,0" Text="{Binding Commis.Nom}" />
+                                        <TextBlock Margin="2,0,0,0" Text="{Binding Commis.Prenom}" />
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,2">
+                                        <TextBlock FontWeight="Bold">Livreur:</TextBlock>
+                                        <TextBlock Margin="2,0,0,0" Text="{Binding Commis.Nom}" />
+                                        <TextBlock Margin="2,0,0,0" Text="{Binding Commis.Prenom}" />
+                                    </WrapPanel>
+                                </StackPanel>
+
+                                <ListBox
+                                    Name="ItemListBox"
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    HorizontalContentAlignment="Stretch"
+                                    ItemsSource="{Binding Items}" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                </DataGrid>
+            </Border>
+            <!--#endregion // Commandes-->
         </Grid>
     </DockPanel>
 </UserControl>

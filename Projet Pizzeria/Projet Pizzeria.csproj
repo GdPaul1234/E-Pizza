@@ -230,6 +230,9 @@
     <Compile Include="View\CommandeView.xaml.cs">
       <DependentUpon>CommandeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CommunicationMessageView.xaml.cs">
+      <DependentUpon>CommunicationMessageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ImportPersonneDialog.xaml.cs">
       <DependentUpon>ImportPersonneDialog.xaml</DependentUpon>
     </Compile>
@@ -273,6 +276,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CommandeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CommunicationMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
