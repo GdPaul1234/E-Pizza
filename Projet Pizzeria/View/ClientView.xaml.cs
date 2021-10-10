@@ -19,7 +19,7 @@ namespace Projet_Pizzeria.View
         private readonly ModuleClientEffectif _controller = new ModuleClientEffectif();
         private readonly CollectionViewSource clientViewSource;
 
-        public ToggleButtonLogic ToggleButtonLogic { get; set; } = new ToggleButtonLogic();
+        public ToggleButtonLogic ToggleUIButtonLogic { get; set; } = new ToggleButtonLogic();
 
         public ClientView()
         {
@@ -117,7 +117,7 @@ namespace Projet_Pizzeria.View
             _controller.ResetFilter();
 
             // reset UI
-            ToggleButtonLogic.ResetToggleButtons();
+            ToggleUIButtonLogic.ResetToggleButtons();
             CitySearch.Text = "";
 
             // manual refresh
@@ -127,10 +127,10 @@ namespace Projet_Pizzeria.View
 
         private void ReApplyFilter()
         {
-            if (ToggleButtonLogic.OrderAchatsAsc) _controller.OrderByAlphaOrder(1).Collect();
-            if (ToggleButtonLogic.OrderAchatsDesc) _controller.OrderByAlphaOrder(-1).Collect();
-            if (ToggleButtonLogic.OrderAchatsAsc) _controller.OrderByAchatCumule(1).Collect();
-            if (ToggleButtonLogic.OrderAchatsDesc) _controller.OrderByAchatCumule(-1).Collect();
+            if (ToggleUIButtonLogic.OrderAchatsAsc) _controller.OrderByAlphaOrder(1).Collect();
+            if (ToggleUIButtonLogic.OrderAchatsDesc) _controller.OrderByAlphaOrder(-1).Collect();
+            if (ToggleUIButtonLogic.OrderAchatsAsc) _controller.OrderByAchatCumule(1).Collect();
+            if (ToggleUIButtonLogic.OrderAchatsDesc) _controller.OrderByAchatCumule(-1).Collect();
 
             // manual refresh
             System.Diagnostics.Trace.TraceInformation($"Filter re-applied");
@@ -214,88 +214,88 @@ namespace Projet_Pizzeria.View
         }
 
         #endregion Import Export Handler
+
+        #region ToggleButton Logic
+
+        public class ToggleButtonLogic : INotifyPropertyChanged
+        {
+            private bool _orderAlphaAsc = false, _orderAlphaDesc = false;
+            private bool _orderAchatsAsc = false, _orderAchatsDesc = false;
+
+            public bool OrderAlphaAsc
+            {
+                get => _orderAlphaAsc;
+                set
+                {
+                    if (value)
+                        _orderAlphaDesc = false;
+                    if (value || !_orderAlphaAsc)
+                        _orderAlphaAsc = value;
+                    OnPropertyChanged("OrderAlphaAsc");
+                    OnPropertyChanged("OrderAlphaDesc");
+                }
+            }
+
+            public bool OrderAlphaDesc
+            {
+                get => _orderAlphaDesc;
+                set
+                {
+                    if (value)
+                        _orderAlphaAsc = false;
+                    if (value || !_orderAlphaDesc)
+                        _orderAlphaDesc = value;
+                    OnPropertyChanged("OrderAlphaAsc");
+                    OnPropertyChanged("OrderAlphaDesc");
+                }
+            }
+
+            public bool OrderAchatsAsc
+            {
+                get => _orderAchatsAsc;
+                set
+                {
+                    if (value)
+                        _orderAchatsDesc = false;
+                    if (value || !_orderAchatsAsc)
+                        _orderAchatsAsc = value;
+                    OnPropertyChanged("OrderAchatsAsc");
+                    OnPropertyChanged("OrderAchatsDesc");
+                }
+            }
+
+            public bool OrderAchatsDesc
+            {
+                get => _orderAchatsDesc;
+                set
+                {
+                    if (value)
+                        _orderAchatsAsc = false;
+                    if (value || !_orderAchatsDesc)
+                        _orderAchatsDesc = value;
+                    OnPropertyChanged("OrderAchatsAsc");
+                    OnPropertyChanged("OrderAchatsDesc");
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            protected void OnPropertyChanged([CallerMemberName] string new_Value = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(new_Value));
+            }
+
+            public void ResetToggleButtons()
+            {
+                _orderAlphaAsc = _orderAlphaDesc = false;
+                _orderAchatsAsc = _orderAchatsDesc = false;
+
+                // reset smart toggle state
+                OrderAlphaAsc = OrderAlphaDesc = false;
+                OrderAchatsAsc = OrderAchatsDesc = false;
+            }
+        }
+
+        #endregion ToggleButton Logic
     }
-
-    #region ToggleButton Logic
-
-    public class ToggleButtonLogic : INotifyPropertyChanged
-    {
-        private bool _orderAlphaAsc = false, _orderAlphaDesc = false;
-        private bool _orderAchatsAsc = false, _orderAchatsDesc = false;
-
-        public bool OrderAlphaAsc
-        {
-            get => _orderAlphaAsc;
-            set
-            {
-                if (value)
-                    _orderAlphaDesc = false;
-                if (value || !_orderAlphaAsc)
-                    _orderAlphaAsc = value;
-                OnPropertyChanged("OrderAlphaAsc");
-                OnPropertyChanged("OrderAlphaDesc");
-            }
-        }
-
-        public bool OrderAlphaDesc
-        {
-            get => _orderAlphaDesc;
-            set
-            {
-                if (value)
-                    _orderAlphaAsc = false;
-                if (value || !_orderAlphaDesc)
-                    _orderAlphaDesc = value;
-                OnPropertyChanged("OrderAlphaAsc");
-                OnPropertyChanged("OrderAlphaDesc");
-            }
-        }
-
-        public bool OrderAchatsAsc
-        {
-            get => _orderAchatsAsc;
-            set
-            {
-                if (value)
-                    _orderAchatsDesc = false;
-                if (value || !_orderAchatsAsc)
-                    _orderAchatsAsc = value;
-                OnPropertyChanged("OrderAchatsAsc");
-                OnPropertyChanged("OrderAchatsDesc");
-            }
-        }
-
-        public bool OrderAchatsDesc
-        {
-            get => _orderAchatsDesc;
-            set
-            {
-                if (value)
-                    _orderAchatsAsc = false;
-                if (value || !_orderAchatsDesc)
-                    _orderAchatsDesc = value;
-                OnPropertyChanged("OrderAchatsAsc");
-                OnPropertyChanged("OrderAchatsDesc");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string new_Value = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(new_Value));
-        }
-
-        public void ResetToggleButtons()
-        {
-            _orderAlphaAsc = _orderAlphaDesc = false;
-            _orderAchatsAsc = _orderAchatsDesc = false;
-
-            // reset smart toggle state
-            OrderAlphaAsc = OrderAlphaDesc = false;
-            OrderAchatsAsc = OrderAchatsDesc = false;
-        }
-    }
-
-    #endregion ToggleButton Logic
 }

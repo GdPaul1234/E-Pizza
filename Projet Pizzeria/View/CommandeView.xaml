@@ -67,7 +67,7 @@
                 <ToggleButton
                     Name="Preparation"
                     Click="FilterButton_Click"
-                    IsChecked="{Binding ThreeStateToggleButtonLogic.EnPreparation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IsChecked="{Binding PreparationLivraisonFermee.EnPreparation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="stateCommande"
                     ToolBar.OverflowMode="Never"
                     ToolTip="Commandes en préparation">
@@ -83,7 +83,7 @@
                 <ToggleButton
                     Name="Livraison"
                     Click="FilterButton_Click"
-                    IsChecked="{Binding ThreeStateToggleButtonLogic.EnLivraison, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IsChecked="{Binding PreparationLivraisonFermee.EnLivraison, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="stateCommande"
                     ToolTip="Commandes en livraison">
                     <StackPanel>
@@ -98,7 +98,7 @@
                 <ToggleButton
                     Name="Fermee"
                     Click="FilterButton_Click"
-                    IsChecked="{Binding ThreeStateToggleButtonLogic.EnFermee, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IsChecked="{Binding PreparationLivraisonFermee.EnFermee, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="stateCommande"
                     ToolTip="Commandes fermées">
                     <StackPanel>
@@ -115,6 +115,7 @@
                 <ToggleButton
                     Name="Encaissee"
                     Click="FilterButton_Click"
+                    IsChecked="{Binding EncaissePerdueToggleButton.Encaissee, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="checkCommande"
                     ToolTip="Commandes encaissées">
                     <StackPanel>
@@ -122,13 +123,14 @@
                             Width="16"
                             Height="16"
                             Icon="Money" />
-                        <TextBlock>Encaissé</TextBlock>
+                        <TextBlock>Encaissée</TextBlock>
                     </StackPanel>
                 </ToggleButton>
 
                 <ToggleButton
                     Name="APerte"
                     Click="FilterButton_Click"
+                    IsChecked="{Binding EncaissePerdueToggleButton.Perdue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="checkCommande"
                     ToolTip="Commandes perdues">
                     <StackPanel>

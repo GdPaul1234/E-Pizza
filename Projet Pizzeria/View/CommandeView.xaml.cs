@@ -25,7 +25,8 @@ namespace Projet_Pizzeria.View
         private static readonly string _dbFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{sep}Pizzeria";
         private static readonly string _backupDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}{sep}PizzeriaBackup";
 
-        public ThreeStateToggleButtonLogic ThreeStateToggleButtonLogic { get; set; } = new ThreeStateToggleButtonLogic();
+        public ThreeStateToggleButtonLogic PreparationLivraisonFermee { get; set; } = new ThreeStateToggleButtonLogic();
+        public TwoStateDeactivableToggleButtonLogic EncaissePerdueToggleButton { get; set; } = new TwoStateDeactivableToggleButtonLogic();
 
         public CommandeView()
         {
@@ -59,7 +60,8 @@ namespace Projet_Pizzeria.View
             _controller.ResetFilter();
 
             // reset UI
-            ThreeStateToggleButtonLogic.ResetToggleButtons();
+            PreparationLivraisonFermee.ResetToggleButtons();
+            EncaissePerdueToggleButton.ResetToggleButtons();
             NoCommandeTextBox.Text = "";
 
             // manual refresh
@@ -72,11 +74,26 @@ namespace Projet_Pizzeria.View
             // Get filter sender
             var filterToBeApplied = sender as FrameworkElement;
 
+            if (filterToBeApplied.Name == "Preparation" || filterToBeApplied.Name == "Livraison")
+                EncaissePerdueToggleButton.ResetToggleButtons();
+            NoCommandeTextBox.Text = "";
+
             switch (filterToBeApplied.Name)
             {
                 case "Preparation": _controller.FilterByEtat("En préparation").Collect(); break;
                 case "Livraison": _controller.FilterByEtat("En livraison").Collect(); break;
                 case "Fermee": _controller.FilterByEtat("Fermée").Collect(); break;
+
+                case "Encaissee":
+                    PreparationLivraisonFermee.EnFermee = true;
+                    _controller.FilterByEtatPaiementEstEncaissee(true).Collect();
+                    break;
+
+                case "APerte":
+                    PreparationLivraisonFermee.EnFermee = true;
+                    _controller.FilterByEtatPaiementEstEncaissee(false).Collect();
+                    break;
+
                 default: break;
             }
 
@@ -107,6 +124,10 @@ namespace Projet_Pizzeria.View
                     EtatCommande = etatCommande.Text,
                     EstEncaissee = (bool)estEncaissee.IsChecked ? 1 : 0
                 });
+
+                // manual refresh
+                System.Diagnostics.Trace.TraceInformation($"Commande {selectedCommande.NumeroCommande} edited!");
+                Reset_Button_Click(null, null);
             }
         }
 
@@ -169,68 +190,120 @@ namespace Projet_Pizzeria.View
         }
 
         #endregion Import Export Handler
+
+        #region ThreeStatToggleeButtonLogic
+
+        public class ThreeStateToggleButtonLogic : INotifyPropertyChanged
+        {
+            private bool _preparation = false, _livraison = false, _fermee = false;
+
+            public bool EnPreparation
+            {
+                get => _preparation;
+                set
+                {
+                    if (value) _livraison = _fermee = false;
+                    _preparation = value;
+                    OnPropertyChanged("EnPreparation");
+                    OnPropertyChanged("EnLivraison");
+                    OnPropertyChanged("EnFermee");
+                }
+            }
+
+            public bool EnLivraison
+            {
+                get => _livraison;
+                set
+                {
+                    if (value) _preparation = _fermee = false;
+                    _livraison = value;
+                    OnPropertyChanged("EnPreparation");
+                    OnPropertyChanged("EnLivraison");
+                    OnPropertyChanged("EnFermee");
+                }
+            }
+
+            public bool EnFermee
+            {
+                get => _fermee;
+                set
+                {
+                    if (value) _livraison = _preparation = false;
+                    _fermee = value;
+                    OnPropertyChanged("EnPreparation");
+                    OnPropertyChanged("EnLivraison");
+                    OnPropertyChanged("EnFermee");
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            protected void OnPropertyChanged([CallerMemberName] string new_Value = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(new_Value));
+            }
+
+            public void ResetToggleButtons()
+            {
+                _preparation = _livraison = _fermee = false;
+                OnPropertyChanged("EnPreparation");
+                OnPropertyChanged("EnLivraison");
+                OnPropertyChanged("EnFermee");
+            }
+        }
+
+        #endregion ThreeStatToggleeButtonLogic
+
+        #region TwoStateDeactivableToggleButtonLogic
+
+        public class TwoStateDeactivableToggleButtonLogic : INotifyPropertyChanged
+        {
+            private bool _encaissee, _perdue = false;
+
+            public bool Encaissee
+            {
+                get => _encaissee;
+                set
+                {
+                    if (value)
+                    {
+                        _perdue = false;
+                    }
+                    _encaissee = value;
+                    OnPropertyChanged("Encaissee");
+                    OnPropertyChanged("Perdue");
+                }
+            }
+
+            public bool Perdue
+            {
+                get => _perdue;
+                set
+                {
+                    if (value) _encaissee = false;
+                    _perdue = value;
+                    OnPropertyChanged("Encaissee");
+                    OnPropertyChanged("Perdue");
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            protected void OnPropertyChanged([CallerMemberName] string new_Value = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(new_Value));
+            }
+
+            public void ResetToggleButtons()
+            {
+                _encaissee = _perdue = false;
+                OnPropertyChanged("Encaissee");
+                OnPropertyChanged("Perdue");
+            }
+        }
+
+        #endregion TwoStateDeactivableToggleButtonLogic
     }
-
-    #region ThreeStatToggleeButtonLogic
-
-    public class ThreeStateToggleButtonLogic : INotifyPropertyChanged
-    {
-        private bool _preparation = true, _livraison = false, _fermee = false;
-
-        public bool EnPreparation
-        {
-            get => _preparation;
-            set
-            {
-                if (value) _livraison = _fermee = false;
-                _preparation = value;
-                OnPropertyChanged("EnPreparation");
-                OnPropertyChanged("EnLivraison");
-                OnPropertyChanged("EnFermee");
-            }
-        }
-
-        public bool EnLivraison
-        {
-            get => _livraison;
-            set
-            {
-                if (value) _preparation = _fermee = false;
-                _livraison = value;
-                OnPropertyChanged("EnPreparation");
-                OnPropertyChanged("EnLivraison");
-                OnPropertyChanged("EnFermee");
-            }
-        }
-
-        public bool EnFermee
-        {
-            get => _fermee;
-            set
-            {
-                if (value) _livraison = _preparation = false;
-                _fermee = value;
-                OnPropertyChanged("EnPreparation");
-                OnPropertyChanged("EnLivraison");
-                OnPropertyChanged("EnFermee");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string new_Value = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(new_Value));
-        }
-
-        public void ResetToggleButtons()
-        {
-            _preparation = true;
-            _livraison = _fermee = false;
-        }
-    }
-
-    #endregion ThreeStatToggleeButtonLogic
 
     #region IntToBooleanValueConverter
 

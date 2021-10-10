@@ -62,7 +62,7 @@
                 <ToggleButton
                     Name="orderNameAsc"
                     Click="FilterButton_Click"
-                    IsChecked="{Binding ToggleButtonLogic.OrderAlphaAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IsChecked="{Binding ToggleUIButtonLogic.OrderAlphaAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="orderName"
                     ToolBar.OverflowMode="Never"
                     ToolTip="Trier les noms (croissant)">
@@ -78,7 +78,7 @@
                 <ToggleButton
                     Name="orderNameDesc"
                     Click="FilterButton_Click"
-                    IsChecked="{Binding ToggleButtonLogic.OrderAlphaDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IsChecked="{Binding ToggleUIButtonLogic.OrderAlphaDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="orderName"
                     ToolTip="Trier les noms (desc.)">
                     <StackPanel>
@@ -95,7 +95,7 @@
                 <ToggleButton
                     Name="orderAchatsAsc"
                     Click="FilterButton_Click"
-                    IsChecked="{Binding ToggleButtonLogic.OrderAchatsAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IsChecked="{Binding ToggleUIButtonLogic.OrderAchatsAsc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="orderAchats"
                     ToolTip="Trier le montant des achats cumulés (croissant)">
                     <StackPanel>
@@ -110,7 +110,7 @@
                 <ToggleButton
                     Name="orderAchatsDesc"
                     Click="FilterButton_Click"
-                    IsChecked="{Binding ToggleButtonLogic.OrderAchatsDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IsChecked="{Binding ToggleUIButtonLogic.OrderAchatsDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="orderAchats"
                     ToolBar.OverflowMode="Never"
                     ToolTip="Trier le montant des achats cumulés (desc.)">

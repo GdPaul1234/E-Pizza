@@ -13,6 +13,13 @@ namespace Projet_Pizzeria.Controller
         ICommandeOrderer FilterByEtat(string etat);
 
         /// <summary>
+        /// Filtrer les commandes selon leur encaissement ou perdu
+        /// </summary>
+        /// <param name="etat">Etat financier de la commande</param>
+        ///<returns></returns>
+        ICommandeOrderer FilterByEtatPaiementEstEncaissee(bool estEncaissee);
+
+        /// <summary>
         /// Rechercher une commande particulière
         /// </summary>
         /// <param name="numeroCommande">Numéro de la commande</param>

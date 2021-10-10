@@ -107,6 +107,16 @@ namespace Projet_Pizzeria.Controller
             return this;
         }
 
+        public ICommandeOrderer FilterByEtatPaiementEstEncaissee(bool estEncaissee)
+        {
+            ResetFilter();
+            CommandeResultSet = FilterByEtat("Fermée")
+                .Collect()
+                .Where(c => c.EstEncaissee == (estEncaissee ? 1 : 0))
+                .OrderByDescending(c => c.DateHeureCommande);
+            return this;
+        }
+
         public ICommandeOrderer SearchByNumber(long numeroCommande)
         {
             CommandeResultSet = CommandeResultSet.Where(c => c.NumeroCommande == numeroCommande)
