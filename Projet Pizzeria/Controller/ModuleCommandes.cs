@@ -70,6 +70,10 @@ namespace Projet_Pizzeria.Controller
             {
                 editingCommande.EtatCommande = c.EtatCommande;
                 editingCommande.EstEncaissee = c.EstEncaissee;
+
+                // gratifier le livreur pour sa livraison
+                if (c.EtatCommande == "Fermée") editingCommande.Livreur.NbLivraisonEffectue++;
+
                 pizzeriaDb.SaveChanges();
                 RefreshResultSet();
             }

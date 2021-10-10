@@ -8,7 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="commisViewSource" />
+        <CollectionViewSource x:Key="livreurViewSource" />
+    </UserControl.Resources>
+
     <DockPanel>
         <!--#region  Toolbar-->
         <ToolBarTray DockPanel.Dock="Top">
@@ -111,6 +118,38 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Padding" Value="5,5,5,5" />
+                </Style>
+            </Grid.Resources>
+
+            <!--#region Stats Commis-->
+            <Border>
+                <DataGrid
+                    Name="commisDataGrid"
+                    AutoGenerateColumns="True"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource commisViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single" />
+            </Border>
+            <!--#endregion // Stats Commis-->
+
+            <!--#region Stats Livreur-->
+            <Border Grid.Row="1">
+                <DataGrid
+                    Name="livreurDataGrid"
+                    AutoGenerateColumns="True"
+                    EnableRowVirtualization="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource livreurViewSource}}"
+                    RowDetailsVisibilityMode="VisibleWhenSelected"
+                    SelectionMode="Single" />
+            </Border>
+            <!--#endregion // Stats Livreur-->
         </Grid>
     </DockPanel>
 </UserControl>
