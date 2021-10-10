@@ -18,9 +18,8 @@ namespace Projet_Pizzeria.Model
         public virtual Commis Commis { get; set; }
         public virtual Client Client { get; set; }
         public virtual Livreur Livreur { get; set; }
-       
-      
-        public virtual ICollection<AItem> Items { get; private set; } = new ObservableCollection<AItem>();
+
+        public virtual ICollection<AItem> Items { get; internal set; } = new ObservableCollection<AItem>();
 
         /// <summary>
         /// @param p

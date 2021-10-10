@@ -21,7 +21,10 @@
         <!--#region  Toolbar-->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button ToolTip="Ouvrir une sauvegarde">
+                <Button
+                    Name="ImportCommandes"
+                    Click="ImportCommandes_Click"
+                    ToolTip="Ouvrir une sauvegarde">
                     <StackPanel>
                         <fa:ImageAwesome
                             Width="16"
@@ -31,7 +34,10 @@
                     </StackPanel>
                 </Button>
 
-                <Button ToolTip="Exporter dans un fichier">
+                <Button
+                    x:Name="ExportCommandes"
+                    Click="ExportCommandes_Click"
+                    ToolTip="Exporter dans un fichier">
                     <StackPanel>
                         <fa:ImageAwesome
                             Width="16"

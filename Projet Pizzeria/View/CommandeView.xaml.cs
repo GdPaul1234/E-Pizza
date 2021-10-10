@@ -9,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Projet_Pizzeria.Controller;
+using System.IO;
+using System.Linq;
 
 namespace Projet_Pizzeria.View
 {
@@ -19,6 +21,10 @@ namespace Projet_Pizzeria.View
     {
         private readonly ModuleCommandes _controller = new ModuleCommandes();
         private readonly CollectionViewSource commandeViewSource;
+
+        private static readonly char sep = Path.DirectorySeparatorChar;
+        private static readonly string _dbFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{sep}Pizzeria";
+        private static readonly string _backupDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}{sep}PizzeriaBackup";
 
         public ThreeStateToggleButtonLogic ThreeStateToggleButtonLogic { get; set; } = new ThreeStateToggleButtonLogic();
 
@@ -104,6 +110,66 @@ namespace Projet_Pizzeria.View
                 });
             }
         }
+
+        #region Import Export Handler
+
+        private void ExportCommandes_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _controller.ExportCommande(); // Do nothing, see implementation comments
+
+                var fName = "commandes.db";
+
+                Directory.CreateDirectory(_backupDir);
+                File.Copy(Path.Combine(_dbFolderPath, "pizzeria.db"), Path.Combine(_backupDir, fName), true);
+
+                System.Diagnostics.Process.Start("explorer.exe", _backupDir);
+                System.Diagnostics.Trace.TraceInformation("Export successfully!");
+            }
+            catch (Exception err)
+            {
+                System.Diagnostics.Trace.TraceError(err.StackTrace);
+            }
+        }
+
+        private void ImportCommandes_Click(object sender, RoutedEventArgs e)
+        {
+            string filename = ImportPersonneDialog.OpenFileDialog();
+            string entityName = "commandes.db";
+
+            if (filename != null && Path.GetFileName(filename) == entityName)
+            {
+                var askQuestion = MessageBox.Show("Cette opération va remplacer les données actuelles\n Continuer ?",
+                    "Importation commandes", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (askQuestion == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        _controller.ImportCommande(); // Do nothing, see implementation comments
+
+                        File.Copy(filename, Path.Combine(_dbFolderPath, "pizzeria.db"), true);
+
+                        // Restart the application
+                        System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                        Application.Current.Shutdown();
+                    }
+                    catch (Exception err)
+                    {
+                        System.Diagnostics.Trace.TraceError(err.Message);
+                        MessageBox.Show(err.Message,
+                        "Erreur importation", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show($"L'importation a échouée.\nNom de fichier invalide (!= '{entityName}')",
+                   "Erreur importation", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        #endregion Import Export Handler
     }
 
     #region ThreeStatToggleeButtonLogic

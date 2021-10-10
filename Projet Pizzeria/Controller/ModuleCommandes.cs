@@ -78,10 +78,24 @@ namespace Projet_Pizzeria.Controller
 
         #endregion CRU_ Commandes
 
+        #region Import Export Commande
+
+        public void ExportCommande()
+        {
+            /* C'est le controller qui sera en charge d'exporter le fichier au
+             * bon endroit
+             */
+        }
+
         public void ImportCommande()
         {
-            // TODO implement here
+            /* ON copie la db Pizzeria au bon emplacement.
+             * En effet, une commande a besoin de toutes les entités de la bdd :
+             * - Client, COmmis, Livreur, Commande, Boisson et Pizza
+             */
         }
+
+        #endregion Import Export Commande
 
         #region ICommandeOrderer implementation
 

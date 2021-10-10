@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace Projet_Pizzeria.Model
@@ -7,6 +6,7 @@ namespace Projet_Pizzeria.Model
     {
         [Key]
         public long NoCommis { get; set; }
+
         public string Nom { get; set; }
         public string Prenom { get; set; }
 
