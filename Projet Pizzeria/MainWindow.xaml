@@ -23,7 +23,9 @@
             <TabItem Header="Statistiques">
                 <localview:StatsView />
             </TabItem>
-            <TabItem Header="Communication" />
+            <TabItem Header="Communication">
+                <localview:CommunicationMessageView />
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
