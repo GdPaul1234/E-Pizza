@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Projet_Pizzeria.DAO;
 using Projet_Pizzeria.Model;
 using System;
@@ -16,21 +17,22 @@ namespace Projet_Pizzeria.Controller
                 pizzeriaDb = new PizzeriaContext();
         }
 
-        public static List<Commande> GetCommandeBetweenTime(DateTime start, DateTime stop)
+        public List<Commande> GetCommandeBetweenTime(DateTime start, DateTime stop)
         {
             return pizzeriaDb.Commandes.Where(c => c.DateHeureCommande >= start && c.DateHeureCommande <= stop)
                 .ToList();
         }
 
-        public double GetAvgPrixCommande() => pizzeriaDb.Commandes.Average(c => c.MontantTotal);
-
-        public static List<KeyValuePair<Client, double>> GetAvgPrixClient()
+        public double GetAvgPrixCommande()
         {
-            return pizzeriaDb.Commandes.GroupBy(c => c.Client,
-                c => c.MontantTotal,
-                (client, montants) =>
-                    new KeyValuePair<Client, double>(client, montants.Average()))
-                .ToList();
+            pizzeriaDb.Commandes.Load();
+            return pizzeriaDb.Commandes.Average(c => c.MontantTotal);
+        }
+
+        public double GetAvgPrixClient()
+        {
+            pizzeriaDb.Clients.Load();
+            return pizzeriaDb.Clients.Average(c => c.MontantAchatCumule);
         }
     }
 }

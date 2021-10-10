@@ -152,6 +152,8 @@
                     <TextBlock HorizontalAlignment="Center">No. Commande</TextBlock>
                 </StackPanel>
 
+                <Separator />
+
                 <Button Click="Reset_Button_Click" ToolTip="Réinitialiser les filtres">
                     <StackPanel>
                         <fa:ImageAwesome

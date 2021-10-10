@@ -20,7 +20,9 @@
             <TabItem Header="Commandes">
                 <localview:CommandeView />
             </TabItem>
-            <TabItem Header="Statistiques" />
+            <TabItem Header="Statistiques">
+                <localview:StatsView />
+            </TabItem>
             <TabItem Header="Communication" />
         </TabControl>
     </Grid>
