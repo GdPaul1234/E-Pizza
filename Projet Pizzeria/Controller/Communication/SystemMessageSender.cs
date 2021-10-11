@@ -28,7 +28,7 @@ namespace Projet_Pizzeria.Controller.Communication
             // Livreur
             Task.Delay(RoutingKeys.LIVREUR_PREPARATION_DELAY).ContinueWith((t) =>
             {
-                ModuleCommunication.PublishMessage(RoutingKeys.PREPARATION_CLIENT,
+                ModuleCommunication.PublishMessage(RoutingKeys.PREPARATION_LIVREUR,
                 $"{dateNow} (5 min ago): Commande à livrer {commande.NumeroCommande} au {commande.Client.Adresse}");
             });
 
