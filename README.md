@@ -33,7 +33,7 @@ Vous devez voir `PM>` dans l'invité de commande.
 ```ps
  Update-Database -Context PizzeriaContext
  Update-Database -Context ClientContext
- Update-DatabaseB -Context CommisContext
+ Update-Database -Context CommisContext
  Update-Database -Context LivreurContext
 ```
 
